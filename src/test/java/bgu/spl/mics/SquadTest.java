@@ -3,10 +3,8 @@ import java.util.*;
 
 import bgu.spl.mics.application.passiveObjects.Agent;
 import bgu.spl.mics.application.passiveObjects.Squad;
-import com.sun.org.apache.xerces.internal.xs.LSInputList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import bgu.spl.mics.application.passiveObjects.Inventory;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SquadTest {
@@ -30,7 +28,9 @@ public class SquadTest {
     public void testGetAgentsNames(){
         List<String> serials = Arrays.asList(new String[]{"001", "003"});
         List<String> names = squadTest.getAgentsNames(serials);
-        assertTrue(names == );
+        for (String name : names) {
+            assertTrue((name=="avraam")|(name=="yaakov"));
+        }
     }
     @Test
     public void testGetAgent(){

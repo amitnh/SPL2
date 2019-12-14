@@ -3,10 +3,13 @@ package bgu.spl.mics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.*;
 
 public class FutureTest {
+    private Future<Event<String>> futureTst = new Future();
     @BeforeEach
     public void setUp(){
+
     }
 
     @Test
