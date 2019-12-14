@@ -1,4 +1,4 @@
-package main.java.bgu.spl.mics;
+package bgu.spl.mics;
 
 /**
  * The SimplePublisher is a class that any publisher in the system

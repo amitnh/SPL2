@@ -1,4 +1,4 @@
-package main.java.bgu.spl.mics;
+package bgu.spl.mics;
 
 /**
  * The Publisher is an abstract class that any publisher in the system
