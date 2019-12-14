@@ -6,7 +6,7 @@ import bgu.spl.mics.application.passiveObjects.Inventory;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InventoryTest {
-    Inventory inv = new Inventory();
+    private Inventory inv = new Inventory();
 
     @BeforeEach
     public void setUp(){
