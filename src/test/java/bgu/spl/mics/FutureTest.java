@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
 public class FutureTest {
-    private Future<Event<String>> futureTst = new Future();
+    private Future<String> futureTst = new Future();
     @BeforeEach
     public void setUp(){
 
@@ -14,7 +14,13 @@ public class FutureTest {
 
     @Test
     public void test(){
-        //TODO: change this test and add more tests :)
-        fail("Not a good test");
+        assertFalse(futureTst.isDone());
+        futureTst.resolve("Banana");
+        assertTrue(futureTst.isDone());
+
+        String tst = futureTst.get();
+        assertTrue(tst=="Banana");
+
+
     }
 }
