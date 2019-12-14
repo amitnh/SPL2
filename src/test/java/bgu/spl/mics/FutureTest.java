@@ -1,4 +1,4 @@
-package test.java.bgu.spl.mics;
+package bgu.spl.mics;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FutureTest {
     @BeforeEach
     public void setUp(){
-
     }
 
     @Test
