@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import bgu.spl.mics.application.passiveObjects.Inventory;
 import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.fail;
 public class InventoryTest {
     Inventory inv = new Inventory();
 
@@ -15,10 +14,6 @@ public class InventoryTest {
         inv.load(gadg);
     }
 
-    @Test
-    public void testGetInstance(){
-
-    }
     @Test
     public void testLoad(){
         String[] gadg = {"gadget4","gadget5","gadget6"};
