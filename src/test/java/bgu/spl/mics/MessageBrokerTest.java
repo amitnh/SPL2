@@ -21,8 +21,7 @@ public class MessageBrokerTest {
         ExampleEvent eventTst2 = new ExampleEvent("Lucifer");
         assertTrue(eventTst1.getSenderName()=="God");
 
-        String[] newmission = {"Event","DESTROY ALL CATS"};
-        ExampleMessageSender publisherTst = new ExampleMessageSender(eventTst1.getSenderName(),newmission);
+
 
         SimplePublisher pub1 = new SimplePublisher();
 
