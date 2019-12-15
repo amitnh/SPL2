@@ -32,8 +32,8 @@ public class MessageBrokerTest {
         msgbTst.register(M2);
 
 
-        msgbTst.subscribeEvent(ExampleEvent,M1);
-        msgbTst.subscribeEvent(ExampleEvent,M2);
+        msgbTst.subscribeEvent(eventTst1.getClass(),M1);
+        msgbTst.subscribeEvent(eventTst1.getClass(),M2);
 
         pub1.sendEvent(eventTst1);
         pub1.sendEvent(eventTst2);
