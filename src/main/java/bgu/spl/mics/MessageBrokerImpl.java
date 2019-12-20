@@ -1,5 +1,4 @@
 package bgu.spl.mics;
-import javafx.util.Pair;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -17,7 +16,7 @@ public class MessageBrokerImpl implements MessageBroker {
 	private HashMap<Class<? extends Event>,LinkedList<Subscriber>> subscribeEventMap = new HashMap<Class<? extends Event>,LinkedList<Subscriber>>();
 	private HashMap<Class<? extends Broadcast>,LinkedList<Subscriber>> subscribeBroadcastMap = new HashMap<Class<? extends Broadcast>,LinkedList<Subscriber>>();
 	private ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>> subscribersQueueMap = new ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>>();
-	private ConcurrentHashMap<Event,Future> futureHashMap;
+	private ConcurrentHashMap<Event,Future> futureHashMap = new ConcurrentHashMap<Event,Future>();
 
 
 	//private List<Pair<Class,List<Subscriber>>> subscribeEventList;
@@ -59,20 +58,19 @@ public class MessageBrokerImpl implements MessageBroker {
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
 		Subscriber m;
-		try {
+		try { 				//check if not empty, or event is null
 			synchronized (e.getClass()) { // to check
-				//check if not empty, or it is null
 				m = subscribeEventMap.get(e.getClass()).getFirst(); // brings the first subscriber in the event list
 				subscribeEventMap.get(e.getClass()).add(subscribeEventMap.get(e.getClass()).remove(0)); // moves the subscriber to the end of the list ?
 			}
 		}
-			catch( e){return null;}
+			catch(Exception exp){return null;}
 
 			Future<T> future = new Future<>();
-			//save hashmap of event-future ?
+			futureHashMap.putIfAbsent(e,future);
 			synchronized (m) {
 				subscribersQueueMap.get(m).add(e); //adds the Event to the subscriber Queue
-				m.notifyAll();
+				m.notifyAll(); // if m was in wait() from awaitMessage (empty Queue)
 			}
 		return future;
 
@@ -89,16 +87,32 @@ public class MessageBrokerImpl implements MessageBroker {
 
 	@Override
 	public void unregister(Subscriber m) {
-		subscribersQueueMap.remove(m);
-		//removes from everything .... dont forget
+		for (Map.Entry<Class<? extends Event>,LinkedList<Subscriber>>  i:subscribeEventMap.entrySet()) {
+			synchronized (i.getKey()) {
+				try {i.getValue().remove(m);} catch (Exception exp){};
+			}
+		}
+		for (Map.Entry<Class<? extends Broadcast>,LinkedList<Subscriber>>  i:subscribeBroadcastMap.entrySet()) {
+			synchronized (i.getKey()) {
+				try {i.getValue().remove(m);} catch (Exception exp){};
+			}
+		}
+		synchronized (m)
+		{
+			subscribersQueueMap.remove(m);
+		}
+
 	}
 
 	@Override
 	public Message awaitMessage(Subscriber m) throws InterruptedException {
-		synchronized () {// if there are not masseges
-			m.wait();
+		synchronized (m) {
+			while (subscribersQueueMap.get(m).isEmpty()) {
+				try{  m.wait(); }
+				catch (InterruptedException ignored){}//m.interuppt;} ??????????????
+			}
+			return subscribersQueueMap.get(m).poll();
 		}
-		return null;
 	}
 
 	
