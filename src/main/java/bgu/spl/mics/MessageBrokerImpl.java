@@ -1,5 +1,8 @@
 package bgu.spl.mics;
-
+import javafx.util.Pair;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 /**
  * The {@link MessageBrokerImpl class is the implementation of the MessageBroker interface.
  * Write your implementation here!
@@ -10,15 +13,22 @@ public class MessageBrokerImpl implements MessageBroker {
 	/**
 	 * Retrieves the single instance of this class.
 	 */
-	public static MessageBroker getInstance() {
-		//TODO: Implement this
-		return null;
-	}
+	private static MessageBrokerImpl instance =new MessageBrokerImpl(); //makes the class singelton
+	private ConcurrentHashMap<Class,LinkedList<Subscriber>> subscribeEventMap = new ConcurrentHashMap<Class,LinkedList<Subscriber>>();
+	private ConcurrentHashMap<Class,Subscriber> subscribeBroadcastMap;
+	private ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>> subscribersQueueMap;
 
+
+	//private List<Pair<Class,List<Subscriber>>> subscribeEventList;
+	//private List<LinkedBlockingQueue<Integer> subscribersQueue = new List<LinkedBlockingQueue<Integer>>;
+	public static MessageBroker getInstance() {
+		return instance;
+	}
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, Subscriber m) {
-		// TODO Auto-generated method stub
 
+		List<Subscriber> lst= subscribeEventMap.putIfAbsent(type, new LinkedList<>());// works atomically
+		lst.add(m);
 	}
 
 	@Override
