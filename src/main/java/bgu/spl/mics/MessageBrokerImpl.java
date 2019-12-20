@@ -44,14 +44,20 @@ public class MessageBrokerImpl implements MessageBroker {
 	}
 
 	@Override
-	public <T> void complete(Event<T> e, T result) {
-
+	public <T> void complete(Event<T> e, T result) { // needs synchronized ?!!?!?!?!??!?!?!!?!?!?!?
+		futureHashMap.get(e).resolve(result);
 	}
 
 	@Override
-	public void sendBroadcast(Broadcast b) {
-		// TODO Auto-generated method stub
-
+	public void sendBroadcast(Broadcast b) { // need to think again on the sync $$$$$$$$$$$$$$$$$$$$$$$$
+		for (Subscriber i:subscribeBroadcastMap.get(b.getClass()))
+		{
+			synchronized (i) {
+				try {
+					subscribersQueueMap.get(i).put(b);
+				} catch (Exception exp) {}
+			}
+		}
 	}
 
 	
@@ -73,11 +79,7 @@ public class MessageBrokerImpl implements MessageBroker {
 				m.notifyAll(); // if m was in wait() from awaitMessage (empty Queue)
 			}
 		return future;
-
-
 	}
-
-
 
 	@Override
 	public void register(Subscriber m) {
@@ -114,7 +116,5 @@ public class MessageBrokerImpl implements MessageBroker {
 			return subscribersQueueMap.get(m).poll();
 		}
 	}
-
-	
 
 }
