@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.passiveObjects;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,8 +14,16 @@ public class MissionInfo {
     /**
      * Sets the name of the mission.
      */
+    private String name;
+	private String gadget;
+	private int timeIssued;
+	private int timeExpired;
+	private int duration;
+    private List<String> serialAgentsNumbers;
+
     public void setMissionName(String missionName) {
         // TODO Implement this
+		this.name= missionName;
     }
 
 	/**
@@ -22,7 +31,7 @@ public class MissionInfo {
      */
 	public String getMissionName() {
 		// TODO Implement this
-		return null;
+		return this.name;
 	}
 
     /**
@@ -30,6 +39,7 @@ public class MissionInfo {
      */
     public void setSerialAgentsNumbers(List<String> serialAgentsNumbers) {
         // TODO Implement this
+		this.serialAgentsNumbers = serialAgentsNumbers;
     }
 
 	/**
@@ -37,7 +47,7 @@ public class MissionInfo {
      */
 	public List<String> getSerialAgentsNumbers() {
 		// TODO Implement this
-		return null;
+		return this.serialAgentsNumbers;
 	}
 
     /**
@@ -45,6 +55,7 @@ public class MissionInfo {
      */
     public void setGadget(String gadget) {
         // TODO Implement this
+		this.gadget = gadget;
     }
 
 	/**
@@ -52,7 +63,7 @@ public class MissionInfo {
      */
 	public String getGadget() {
 		// TODO Implement this
-		return null;
+		return this.gadget;
 	}
 
     /**
@@ -60,6 +71,7 @@ public class MissionInfo {
      */
     public void setTimeIssued(int timeIssued) {
         // TODO Implement this
+		this.timeIssued = timeIssued;
     }
 
 	/**
@@ -67,7 +79,7 @@ public class MissionInfo {
      */
 	public int getTimeIssued() {
 		// TODO Implement this
-		return 0;
+		return this.timeIssued;
 	}
 
     /**
@@ -75,6 +87,7 @@ public class MissionInfo {
      */
     public void setTimeExpired(int timeExpired) {
         // TODO Implement this
+		this.timeExpired = timeExpired;
     }
 
 	/**
@@ -82,7 +95,7 @@ public class MissionInfo {
      */
 	public int getTimeExpired() {
 		// TODO Implement this
-		return 0;
+		return this.timeExpired;
 	}
 
     /**
@@ -90,6 +103,7 @@ public class MissionInfo {
      */
     public void setDuration(int duration) {
         // TODO Implement this
+		this.duration = duration;
     }
 
 	/**
@@ -97,6 +111,6 @@ public class MissionInfo {
 	 */
 	public int getDuration() {
 		// TODO Implement this
-		return 0;
+		return duration;
 	}
 }
