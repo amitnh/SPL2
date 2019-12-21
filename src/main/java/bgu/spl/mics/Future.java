@@ -1,5 +1,7 @@
 package bgu.spl.mics;
 
+import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -11,12 +13,15 @@ import java.util.concurrent.TimeUnit;
  * No public constructor is allowed except for the empty constructor.
  */
 public class Future<T> {
-	
+	private T Futresult;
+	private boolean isdone;
 	/**
 	 * This should be the the only public constructor in this class.
 	 */
 	public Future() {
 		//TODO: implement this
+		Futresult  = null;
+		isdone=false;
 	}
 	
 	/**
@@ -28,23 +33,27 @@ public class Future<T> {
      * 	       
      */
 	public T get() {
-		//TODO: implement this.
-		return null;
+		//TODO:
+		while (!isDone())
+			try{this.wait();}catch(Exception e){};
+		return Futresult;
 	}
 	
 	/**
      * Resolves the result of this Future object.
      */
 	public void resolve (T result) {
-		//TODO: implement this.
+		//TODO:
+		this.Futresult = result;
+		isdone=true;
 	}
 	
 	/**
      * @return true if this object has been resolved, false otherwise
      */
 	public boolean isDone() {
-		//TODO: implement this.
-		return false;
+		//TODO:
+		return isdone;
 	}
 	
 	/**
@@ -60,7 +69,10 @@ public class Future<T> {
      */
 	public T get(long timeout, TimeUnit unit) {
 		//TODO: implement this.
-		return null;
+		//TODO: implement this late.
+		//TODO: implement this later.......
+
+		return Futresult;
 	}
 
 }

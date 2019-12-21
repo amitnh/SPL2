@@ -14,6 +14,7 @@ public class Moneypenny extends Subscriber {
 	public Moneypenny() {
 		super("Change_This_Name");
 		// TODO Implement this
+
 	}
 
 	@Override
