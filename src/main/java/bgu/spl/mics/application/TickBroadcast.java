@@ -6,5 +6,6 @@ public class TickBroadcast implements Event<Integer> {
 
     private Integer now = 0;
 
+    public void Tick(){now = now+1;}
     public Integer getTime(){ return now;}
 }
