@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.subscribers;
 
+import bgu.spl.mics.Callback;
 import bgu.spl.mics.Subscriber;
 
 /**
@@ -18,7 +19,6 @@ public class Q extends Subscriber {
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		
 	}
 
 }

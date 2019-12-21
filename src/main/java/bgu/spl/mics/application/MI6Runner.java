@@ -33,10 +33,13 @@ public class MI6Runner {
         MessageBroker MB = MessageBrokerImpl.getInstance();
         Q q = new Q();
 
+        q.run();
+
         Gson gson = new Gson();
         try{
             JsonObject inputjson = gson.fromJson(new FileReader(args[0]), JsonObject.class);
 
+            /*
             /////get inventory
             JsonArray inputinventory = inputjson.get("inventory").getAsJsonArray();
             String[] inputgadgets = new String[inputinventory.size()];
@@ -62,6 +65,7 @@ public class MI6Runner {
             }
             squad.load(inputagents);
 
+             */
             ////get services
             JsonObject inputservices = inputjson.get("services").getAsJsonObject();
 
@@ -71,41 +75,36 @@ public class MI6Runner {
             //Create Moneypennys
             int numofMoneypennys = inputservices.getAsJsonObject().get("Moneypenny").getAsInt();
 
+
             //Create intelligence
             JsonArray inputintelligence = inputservices.get("intelligence").getAsJsonArray();
             List<Intelligence> inteligenses = new LinkedList<>();
-
-
             for( int i = 0 ; i < inputintelligence.size() ; i++ ){
-                Intelligence intelligence = new Intelligence();
+                //Intelligence intelligence = new Intelligence();
                 //Create Missions:
                 JsonArray inputmissions = inputintelligence.get(i).getAsJsonObject().get("missions").getAsJsonArray();
 
                 //Create Missions
                 for(int j = 0 ; j < inputmissions.size(); j++){
-                    MissionInfo mission = new MissionInfo();
+                    /*MissionInfo mission = new MissionInfo();
                     mission.setDuration(inputmissions.get(j).getAsJsonObject().get("duration").getAsInt());
                     mission.setTimeExpired(inputmissions.get(j).getAsJsonObject().get("timeExpired").getAsInt());
                     mission.setTimeIssued(inputmissions.get(j).getAsJsonObject().get("timeIssued").getAsInt());
                     mission.setMissionName(inputmissions.get(j).getAsJsonObject().get("name").getAsString());
                     mission.setGadget(inputmissions.get(j).getAsJsonObject().get("gadget").getAsString());
 
+
+                     */
                     List<String> serialAgentsNumbers = new LinkedList<>();
-                    if(inputmissions.get(j).getAsJsonObject().get("agents")==null){  //only one agent needed for mission
-                        serialAgentsNumbers.add(inputmissions.get(j).getAsJsonObject().get("agent").getAsString());
-                        mission.setSerialAgentsNumbers(serialAgentsNumbers);
+                    JsonArray agentsneeded = inputmissions.get(j).getAsJsonObject().get("serialAgentsNumbers").getAsJsonArray();
+                    for(int k = 0 ; k < agentsneeded.size(); k++) {
+                        serialAgentsNumbers.add(agentsneeded.get(k).getAsString());
                     }
-                    else{
-                        JsonArray agentsneeded = inputmissions.get(j).getAsJsonObject().get("agents").getAsJsonArray();
-                        for(int k = 0 ; k < agentsneeded.size(); k++){
-                            serialAgentsNumbers.add(agentsneeded.get(k).getAsJsonObject().get("serialNumber").getAsString());
-                        }
-                    }
-                    mission.setSerialAgentsNumbers(serialAgentsNumbers);
+                   // mission.setSerialAgentsNumbers(serialAgentsNumbers);
                 //***************add mission to intelligence
                 }
 
-                inteligenses.add(intelligence);
+                //inteligenses.add(intelligence);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
