@@ -1,6 +1,11 @@
 package bgu.spl.mics.application.subscribers;
 
+import bgu.spl.mics.MessageBroker;
+import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
+import bgu.spl.mics.application.AgentsAvailableEvent;
+import bgu.spl.mics.application.GadgetAvailableEvent;
+import bgu.spl.mics.application.TickBroadcast;
 
 /**
  * Only this type of Subscriber can access the squad.
@@ -10,9 +15,10 @@ import bgu.spl.mics.Subscriber;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class Moneypenny extends Subscriber {
+	private MessageBroker msg = MessageBrokerImpl.getInstance();
 
 	public Moneypenny() {
-		super("Change_This_Name");
+		super("Moneypenny");
 		// TODO Implement this
 
 	}
@@ -20,7 +26,10 @@ public class Moneypenny extends Subscriber {
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		
+		msg.register(this);
+		msg.subscribeBroadcast(TickBroadcast.class, this);
+		msg.subscribeEvent(AgentsAvailableEvent.class, this);
+		this.run();
 	}
 
 }

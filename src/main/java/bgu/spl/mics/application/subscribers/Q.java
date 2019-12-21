@@ -1,7 +1,11 @@
 package bgu.spl.mics.application.subscribers;
 
 import bgu.spl.mics.Callback;
+import bgu.spl.mics.MessageBroker;
+import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
+import bgu.spl.mics.application.GadgetAvailableEvent;
+import bgu.spl.mics.application.TickBroadcast;
 
 /**
  * Q is the only Subscriber\Publisher that has access to the {@link bgu.spl.mics.application.passiveObjects.Inventory}.
@@ -10,15 +14,20 @@ import bgu.spl.mics.Subscriber;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class Q extends Subscriber {
+	private MessageBroker msg = MessageBrokerImpl.getInstance();
 
 	public Q() {
-		super("Change_This_Name");
+		super("Q");
 		// TODO Implement this
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Implement this
+		msg.register(this);
+		msg.subscribeBroadcast(TickBroadcast.class, this);
+		msg.subscribeEvent(GadgetAvailableEvent.class, this);
+		this.run();
 	}
 
 }
