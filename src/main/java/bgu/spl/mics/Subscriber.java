@@ -1,5 +1,7 @@
 package bgu.spl.mics;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * The Subscriber is an abstract class that any subscriber in the system
  * must extend. The abstract Subscriber class is responsible to get and
@@ -17,6 +19,8 @@ package bgu.spl.mics;
  */
 public abstract class Subscriber extends RunnableSubPub {
     private boolean terminated = false;
+    private MessageBroker msg = MessageBrokerImpl.getInstance();
+    private ConcurrentHashMap<Class,Callback> callbackHashMap = new ConcurrentHashMap<Class,Callback>();
 
     /**
      * @param name the Subscriber name (used mainly for debugging purposes -
@@ -49,6 +53,8 @@ public abstract class Subscriber extends RunnableSubPub {
      */
     protected final <T, E extends Event<T>> void subscribeEvent(Class<E> type, Callback<E> callback) {
         //TODO: implement this.
+        msg.subscribeEvent(type,this);
+        callbackHashMap.putIfAbsent(type,callback);
     }
 
     /**
@@ -73,6 +79,8 @@ public abstract class Subscriber extends RunnableSubPub {
      */
     protected final <B extends Broadcast> void subscribeBroadcast(Class<B> type, Callback<B> callback) {
         //TODO: implement this.
+        msg.subscribeBroadcast(type,this);
+        callbackHashMap.putIfAbsent(type,callback);
     }
 
     /**
@@ -87,6 +95,7 @@ public abstract class Subscriber extends RunnableSubPub {
      */
     protected final <T> void complete(Event<T> e, T result) {
         //TODO: implement this.
+        msg.complete(e,result);
     }
 
     /**
@@ -105,7 +114,13 @@ public abstract class Subscriber extends RunnableSubPub {
     public final void run() {
         initialize();
         while (!terminated) {
-            System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)
+            //System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)
+            try {Message curMsg = msg.awaitMessage(this);
+                callbackHashMap.get(curMsg).call(curMsg);
+            } catch (Exception e){}
+
+
+
         }
     }
 
