@@ -1,8 +1,8 @@
 package bgu.spl.mics.application;
 
-import bgu.spl.mics.Event;
+import bgu.spl.mics.Broadcast;
 
-public class TickBroadcast implements Event<Integer> {
+public class TickBroadcast implements Broadcast {
 
     private Integer now = 0;
 

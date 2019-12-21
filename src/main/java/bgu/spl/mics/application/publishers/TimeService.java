@@ -1,6 +1,10 @@
 package bgu.spl.mics.application.publishers;
 
+import bgu.spl.mics.Broadcast;
+import bgu.spl.mics.MessageBroker;
+import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Publisher;
+import bgu.spl.mics.application.TickBroadcast;
 
 /**
  * TimeService is the global system timer There is only one instance of this Publisher.
@@ -13,20 +17,33 @@ import bgu.spl.mics.Publisher;
  */
 public class TimeService extends Publisher {
 
+	private long now;
+	private TickBroadcast tickBroadcast = new TickBroadcast();;
+
 	public TimeService() {
-		super("Change_This_Name");
+		super("TimeService");
 		// TODO Implement this
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		
+		now = System.currentTimeMillis();
+
 	}
 
 	@Override
 	public void run() {
 		// TODO Implement this
+		while(true) { //CHANGE THIS
+
+			////DO EVERY 100ms:
+			if (System.currentTimeMillis() - now > 100) {
+				tickBroadcast.Tick();
+				now = System.currentTimeMillis();
+				this.getSimplePublisher().sendBroadcast(tickBroadcast);
+			}
+		}
 	}
 
 }
