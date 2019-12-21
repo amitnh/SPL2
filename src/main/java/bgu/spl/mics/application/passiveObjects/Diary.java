@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.passiveObjects;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,9 +15,11 @@ public class Diary {
 	/**
 	 * Retrieves the single instance of this class.
 	 */
+	private static Diary instance = new Diary();
+	private  List<Report> reports = new LinkedList<>();
 	public static Diary getInstance() {
 		//TODO: Implement this
-		return null;
+		return instance;
 	}
 
 	public List<Report> getReports() {
@@ -29,6 +32,7 @@ public class Diary {
 	 */
 	public void addReport(Report reportToAdd){
 		//TODO: Implement this
+		reports.add(reportToAdd);
 	}
 
 	/**
@@ -48,6 +52,6 @@ public class Diary {
 	 */
 	public int getTotal(){
 		//TODO: Implement this
-		return 0;
+		return reports.size();
 	}
 }

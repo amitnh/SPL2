@@ -1,5 +1,7 @@
 package bgu.spl.mics.application.passiveObjects;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Passive data-object representing a information about an agent in MI6.
  * You must not alter any of the given public methods of this class. 
@@ -7,12 +9,15 @@ package bgu.spl.mics.application.passiveObjects;
  * You may add ONLY private fields and methods to this class.
  */
 public class Agent {
-
+	private String serialNumber=null;
+	private String name=null;
+	private boolean isAvailable= true;
 	/**
 	 * Sets the serial number of an agent.
 	 */
 	public void setSerialNumber(String serialNumber) {
 		// TODO Implement this
+		this.serialNumber=serialNumber;
 	}
 
 	/**
@@ -22,7 +27,7 @@ public class Agent {
      */
 	public String getSerialNumber() {
 		// TODO Implement this
-		return null;
+		return serialNumber;
 	}
 
 	/**
@@ -30,6 +35,7 @@ public class Agent {
 	 */
 	public void setName(String name) {
 		// TODO Implement this
+		this.name=name;
 	}
 
 	/**
@@ -39,7 +45,7 @@ public class Agent {
      */
 	public String getName() {
 		// TODO Implement this
-		return null;
+		return name;
 	}
 
 	/**
@@ -49,7 +55,7 @@ public class Agent {
      */
 	public boolean isAvailable() {
 		// TODO Implement this
-		return false;
+		return isAvailable;
 	}
 
 	/**
@@ -57,6 +63,7 @@ public class Agent {
 	 */
 	public void acquire(){
 		// TODO Implement this
+		isAvailable=false;
 	}
 
 	/**
@@ -64,5 +71,7 @@ public class Agent {
 	 */
 	public void release(){
 		// TODO Implement this
+		isAvailable=true;
+		this.notifyAll();
 	}
 }

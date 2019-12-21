@@ -26,7 +26,12 @@ public class M extends Subscriber {
 		// TODO Implement this
 		msg.register(this);
 		msg.subscribeBroadcast(TickBroadcast.class, this);
-		msg.subscribeEvent(MissionReceivedEvent.class, this);
+		msg.subscribeEvent(MissionReceivedEvent.class,this);
+
+		//TODO: $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+		//this.subscribeEvent(MissionReceivedEvent.class,callback); // use lambdas
+		//TODO: $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
 		this.run();
 	}
 

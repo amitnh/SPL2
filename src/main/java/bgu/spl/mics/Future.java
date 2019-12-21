@@ -46,6 +46,7 @@ public class Future<T> {
 		//TODO:
 		this.Futresult = result;
 		isdone=true;
+		this.notifyAll();
 	}
 	
 	/**

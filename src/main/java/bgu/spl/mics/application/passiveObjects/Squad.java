@@ -1,4 +1,6 @@
 package bgu.spl.mics.application.passiveObjects;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,13 +13,13 @@ import java.util.Map;
 public class Squad {
 
 	private Map<String, Agent> agents;
-
+	private static Squad instance = new Squad();
 	/**
 	 * Retrieves the single instance of this class.
 	 */
 	public static Squad getInstance() {
 		//TODO: Implement this
-		return null;
+		return instance;
 	}
 
 	/**
@@ -26,15 +28,26 @@ public class Squad {
 	 * @param agents 	Data structure containing all data necessary for initialization
 	 * 						of the squad.
 	 */
-	public void load (Agent[] agents) {
-		// TODO Implement this
+	public  void  load (Agent[] agents) { // TODO: check if needed to be synchronized
+		// TODO
+		this.agents= new HashMap<>();// clears the map
+		for (Agent a:agents)
+		{
+			this.agents.put(a.getSerialNumber(),a);
+		}
 	}
 
 	/**
 	 * Releases agents.
 	 */
 	public void releaseAgents(List<String> serials){
-		// TODO Implement this
+		// TODO
+		for (String s:serials)
+		{
+			synchronized (s) {
+				agents.get(s).release();
+			}
+		}
 	}
 
 	/**
@@ -43,6 +56,8 @@ public class Squad {
 	 */
 	public void sendAgents(List<String> serials, int time){
 		// TODO Implement this
+		try{Thread.sleep(time);}catch (Exception e){};
+		releaseAgents(serials);
 	}
 
 	/**
@@ -52,7 +67,18 @@ public class Squad {
 	 */
 	public boolean getAgents(List<String> serials){
 		// TODO Implement this
-		return false;
+		for (String s:serials)
+		{
+			synchronized (s) {
+				Agent tmp = agents.get(s);
+				if (tmp == null) return false;
+				while (!tmp.isAvailable()) {
+					try { tmp.wait(); } catch (Exception e) {}
+				}
+				tmp.acquire();
+			}
+		}
+		return true;
 	}
 
     /**
@@ -62,7 +88,12 @@ public class Squad {
      */
     public List<String> getAgentsNames(List<String> serials){
         // TODO Implement this
-	    return null;
+		List<String> names= new LinkedList<>();
+		for (String s:serials)
+		{
+			names.add(agents.get(s).getName());
+		}
+	    return names;
     }
 
 }
