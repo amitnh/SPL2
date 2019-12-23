@@ -5,6 +5,7 @@ import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.AgentsAvailableEvent;
 import bgu.spl.mics.application.GadgetAvailableEvent;
+import bgu.spl.mics.application.MissionReceivedEvent;
 import bgu.spl.mics.application.TickBroadcast;
 
 /**
@@ -26,9 +27,8 @@ public class Moneypenny extends Subscriber {
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		msg.register(this);
-		msg.subscribeBroadcast(TickBroadcast.class, this);
-		msg.subscribeEvent(AgentsAvailableEvent.class, this);
+		this.subscribeBroadcast(TickBroadcast.class,callback);
+		this.subscribeEvent(AgentsAvailableEvent.class,callback); // use lambdas
 		this.run();
 	}
 

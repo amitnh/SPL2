@@ -112,6 +112,7 @@ public abstract class Subscriber extends RunnableSubPub {
      */
     @Override
     public final void run() {
+        msg.register(this);
         initialize();
         while (!terminated) {
             //System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)

@@ -5,6 +5,7 @@ import bgu.spl.mics.MessageBroker;
 import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.GadgetAvailableEvent;
+import bgu.spl.mics.application.MissionReceivedEvent;
 import bgu.spl.mics.application.TickBroadcast;
 
 /**
@@ -24,9 +25,8 @@ public class Q extends Subscriber {
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		msg.register(this);
-		msg.subscribeBroadcast(TickBroadcast.class, this);
-		msg.subscribeEvent(GadgetAvailableEvent.class, this);
+		this.subscribeBroadcast(TickBroadcast.class,callback);
+		this.subscribeEvent(GadgetAvailableEvent.class,callback); // use lambdas
 		this.run();
 	}
 

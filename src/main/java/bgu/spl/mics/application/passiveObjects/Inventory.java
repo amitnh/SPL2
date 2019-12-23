@@ -12,12 +12,13 @@ import java.util.List;
  */
 public class Inventory {
 	private List<String> gadgets;
+	private static Inventory instance= new Inventory();
 	/**
      * Retrieves the single instance of this class.
      */
 	public static Inventory getInstance() {
-		//TODO: Implement this
-		return null;
+		//TODO: i did
+		return instance;
 	}
 
 	/**
@@ -29,6 +30,10 @@ public class Inventory {
      */
 	public void load (String[] inventory) {
 		//TODO: Implement this
+		for (String i:inventory)
+		{
+			gadgets.add(i);
+		}
 	}
 	
 	/**
