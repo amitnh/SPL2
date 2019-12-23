@@ -15,17 +15,14 @@ import bgu.spl.mics.application.TickBroadcast;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class M extends Subscriber {
-	private long timeTick; // needs to be update when Broadcast
+	private long timeTick; // TODO: needs to be update when Broadcast
 	public M() {
 		super("M");
-		// TODO Implement this
 	}
 
 	@Override
 	protected void initialize() {
-
-		// TODO Implement this
-		this.subscribeBroadcast(TickBroadcast.class,callback);
+		this.subscribeBroadcast(TickBroadcast.class,callback); // TODO: callback
 		this.subscribeEvent(MissionReceivedEvent.class,(MissionReceivedEvent e)->
 		{
 			boolean isCompleted = false;

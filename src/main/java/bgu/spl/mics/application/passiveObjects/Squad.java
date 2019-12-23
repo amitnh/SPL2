@@ -71,7 +71,10 @@ public class Squad {
 		{
 			synchronized (s) {
 				Agent tmp = agents.get(s);
-				if (tmp == null) return false;
+				if (tmp == null) {
+					for (String i:serials){agents.get(i).release();} // release all agents and then return false
+					return false;
+				}
 				while (!tmp.isAvailable()) {
 					try { tmp.wait(); } catch (Exception e) {}
 				}
