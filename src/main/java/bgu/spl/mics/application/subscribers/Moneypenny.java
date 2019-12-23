@@ -7,6 +7,7 @@ import bgu.spl.mics.application.AgentsAvailableEvent;
 import bgu.spl.mics.application.GadgetAvailableEvent;
 import bgu.spl.mics.application.MissionReceivedEvent;
 import bgu.spl.mics.application.TickBroadcast;
+import bgu.spl.mics.application.passiveObjects.Squad;
 
 /**
  * Only this type of Subscriber can access the squad.
@@ -16,18 +17,18 @@ import bgu.spl.mics.application.TickBroadcast;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class Moneypenny extends Subscriber {
-
+	private Squad squad;
 	public Moneypenny() {
 		super("Moneypenny");
 		// TODO Implement this
-
+		squad = Squad.getInstance();
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Implement this
 		this.subscribeBroadcast(TickBroadcast.class,callback);
-		this.subscribeEvent(AgentsAvailableEvent.class,callback); // use lambdas
+		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)-> this.complete(e,squad.getAgents(e.getSerials()))); // use lambdas
 		this.run();
 	}
 

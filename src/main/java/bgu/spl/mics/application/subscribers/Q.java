@@ -17,15 +17,14 @@ public class Q extends Subscriber {
 	public Q() {
 		super("Q");
 		// TODO Implement this
+		inv = Inventory.getInstance();
+
 	}
 
 	@Override
 	protected void initialize() {
-		// TODO Implement this
-		inv = Inventory.getInstance();
-		this.subscribeBroadcast(TickBroadcast.class,callback);
-		this.subscribeEvent(GadgetAvailableEvent.class,(String gadget)-> this.complete(,inv.getItem(gadget)); ); // use lambdas
+		this.subscribeBroadcast(TickBroadcast.class,callback); 		// TODO Implement this
+		this.subscribeEvent(GadgetAvailableEvent.class,(GadgetAvailableEvent e)-> this.complete(e,inv.getItem(e.getGadget()))); // use lambdas
 		this.run();
 	}
-
 }
