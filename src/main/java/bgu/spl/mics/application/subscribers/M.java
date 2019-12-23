@@ -14,7 +14,6 @@ import bgu.spl.mics.application.TickBroadcast;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class M extends Subscriber {
-	private MessageBroker msg = MessageBrokerImpl.getInstance();
 	public M() {
 		super("M");
 		// TODO Implement this
