@@ -22,7 +22,9 @@ public class M extends Subscriber {
 
 	@Override
 	protected void initialize() {
-		this.subscribeBroadcast(TickBroadcast.class,callback); // TODO: callback
+		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
+			timeTick= b.getTime();
+		} ); // TODO: callback
 		this.subscribeEvent(MissionReceivedEvent.class,(MissionReceivedEvent e)->
 		{
 			boolean isCompleted = false;

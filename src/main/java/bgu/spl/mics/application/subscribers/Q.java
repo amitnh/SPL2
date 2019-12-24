@@ -23,7 +23,7 @@ public class Q extends Subscriber {
 
 	@Override
 	protected void initialize() {
-		this.subscribeBroadcast(TickBroadcast.class,callback); 		// TODO Implement this
+		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)->{});// TODO Implement this
 		this.subscribeEvent(GadgetAvailableEvent.class,(GadgetAvailableEvent e)-> this.complete(e,inv.getItem(e.getGadget()))); // use lambdas
 		this.run();
 	}

@@ -1,6 +1,9 @@
 package bgu.spl.mics.application.passiveObjects;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.util.Pair;
 import java.util.List;
+
 
 /**
  *  That's where Q holds his gadget (e.g. an explosive pen was used in GoldenEye, a geiger counter in Dr. No, etc).
@@ -43,8 +46,12 @@ public class Inventory {
      * @return 	‘false’ if the gadget is missing, and ‘true’ otherwise
      */
 	public boolean getItem(String gadget){
-		//TODO: Implement this
-		return true;
+		//TODO: Implment this
+		if (gadgets.contains(gadget)) {
+			gadgets.remove(gadget);
+			return true;
+		}
+		return false;
 	}
 
 	/**

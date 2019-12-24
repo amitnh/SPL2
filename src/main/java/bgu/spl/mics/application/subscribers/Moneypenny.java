@@ -27,7 +27,7 @@ public class Moneypenny extends Subscriber {
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		this.subscribeBroadcast(TickBroadcast.class,callback);
+		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)->{});
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)-> this.complete(e,squad.getAgents(e.getSerials()))); // use lambdas
 		this.run();
 	}
