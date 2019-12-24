@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeMap;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -21,6 +23,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import sun.awt.image.ImageWatched;
 
 /** This is the Main class of the application. You should parse the input file, 
  * create the different instances of the objects, and run the system.
@@ -31,15 +34,15 @@ public class MI6Runner {
     public static void main(String[] args) {
         // TODO Implement this
         MessageBroker MB = MessageBrokerImpl.getInstance();
-        Q q = new Q();
-
-        q.run();
+        int numofMoneypennys=0;
+        int numofMs=0;
+        LinkedList<Intelligence> Intelligences = new LinkedList<>();
 
         Gson gson = new Gson();
         try{
             JsonObject inputjson = gson.fromJson(new FileReader(args[0]), JsonObject.class);
 
-            /*
+
             /////get inventory
             JsonArray inputinventory = inputjson.get("inventory").getAsJsonArray();
             String[] inputgadgets = new String[inputinventory.size()];
@@ -65,46 +68,41 @@ public class MI6Runner {
             }
             squad.load(inputagents);
 
-             */
+
             ////get services
             JsonObject inputservices = inputjson.get("services").getAsJsonObject();
 
             //Create M's
-            int numofMs = inputservices.getAsJsonObject().get("M").getAsInt();
+            numofMs = inputservices.getAsJsonObject().get("M").getAsInt();
 
             //Create Moneypennys
-            int numofMoneypennys = inputservices.getAsJsonObject().get("Moneypenny").getAsInt();
+            numofMoneypennys = inputservices.getAsJsonObject().get("Moneypenny").getAsInt();
 
 
             //Create intelligence
             JsonArray inputintelligence = inputservices.get("intelligence").getAsJsonArray();
-            List<Intelligence> inteligenses = new LinkedList<>();
             for( int i = 0 ; i < inputintelligence.size() ; i++ ){
-                //Intelligence intelligence = new Intelligence();
+
                 //Create Missions:
                 JsonArray inputmissions = inputintelligence.get(i).getAsJsonObject().get("missions").getAsJsonArray();
-
-                //Create Missions
+                LinkedList<MissionInfo> missions = new LinkedList<>();
                 for(int j = 0 ; j < inputmissions.size(); j++){
-                    /*MissionInfo mission = new MissionInfo();
+                    MissionInfo mission = new MissionInfo();
                     mission.setDuration(inputmissions.get(j).getAsJsonObject().get("duration").getAsInt());
                     mission.setTimeExpired(inputmissions.get(j).getAsJsonObject().get("timeExpired").getAsInt());
                     mission.setTimeIssued(inputmissions.get(j).getAsJsonObject().get("timeIssued").getAsInt());
                     mission.setMissionName(inputmissions.get(j).getAsJsonObject().get("name").getAsString());
                     mission.setGadget(inputmissions.get(j).getAsJsonObject().get("gadget").getAsString());
-
-
-                     */
                     List<String> serialAgentsNumbers = new LinkedList<>();
                     JsonArray agentsneeded = inputmissions.get(j).getAsJsonObject().get("serialAgentsNumbers").getAsJsonArray();
                     for(int k = 0 ; k < agentsneeded.size(); k++) {
                         serialAgentsNumbers.add(agentsneeded.get(k).getAsString());
                     }
-                   // mission.setSerialAgentsNumbers(serialAgentsNumbers);
-                //***************add mission to intelligence
-                }
+                    mission.setSerialAgentsNumbers(serialAgentsNumbers);
 
-                //inteligenses.add(intelligence);
+                    missions.add(mission);
+                }
+                Intelligences.add(new Intelligence(missions));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -113,6 +111,17 @@ public class MI6Runner {
 
         }
 
+
+        for(int i=0; i<numofMs; i++)
+        {
+            new Thread(new M()).start();
+        }
+        for(int i=0; i<numofMoneypennys; i++)
+        {
+            new Thread(new Moneypenny()).start();
+        }
+        for(Intelligence x : Intelligences)
+            new Thread(x).start();
 
     }
 }

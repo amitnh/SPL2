@@ -18,9 +18,13 @@ import bgu.spl.mics.application.passiveObjects.Squad;
  */
 public class Moneypenny extends Subscriber {
 	private Squad squad;
+	private static int totalofMoneypennys=0;
+	private int id;
 	public Moneypenny() {
 		super("Moneypenny");
 		// TODO Implement this
+		totalofMoneypennys+=1;
+		this.id=totalofMoneypennys;
 		squad = Squad.getInstance();
 	}
 
@@ -28,7 +32,10 @@ public class Moneypenny extends Subscriber {
 	protected void initialize() {
 		// TODO Implement this
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)->{});
-		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)-> this.complete(e,squad.getAgents(e.getSerials()))); // use lambdas
+		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
+			this.complete(e,squad.getAgents(e.getSerials()));
+			
+		} ); // use lambdas
 		this.run();
 	}
 
