@@ -47,7 +47,6 @@ public class M extends Subscriber {
 			report.setTimeCreated(timeTick);
 			boolean isCompleted = false;
 			Future<List<Object>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
-			if((Boolean)agentevent.get().get(0))
 				if (getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget())).get()) {
 					report.setQTime(timeTick);
 					if (e.getInfo().getTimeExpired()>=timeTick)
@@ -57,9 +56,9 @@ public class M extends Subscriber {
 				}
 
 
-				complete(e,isCompleted);
-			report.setAgentsNames((List<String>)(agentevent.get().get(1))); ///TODO
-			report.setMoneypenny((int)agentevent.get().get(2));
+			complete(e,isCompleted);
+			report.setAgentsNames((List<String>)(agentevent.get().get(0))); ///TODO
+			report.setMoneypenny((int)agentevent.get().get(1));
 			report.setAgentsSerialNumbersNumber(e.getInfo().getSerialAgentsNumbers());
 			report.setGadgetName(e.getInfo().getGadget());
 			report.setM(id);

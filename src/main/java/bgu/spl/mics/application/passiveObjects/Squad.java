@@ -69,8 +69,8 @@ public class Squad {
 		// TODO Implement this
 		for (String s:serials)
 		{
-			synchronized (s) { //TODO: we need to put the agents in Alphabetical order
-				Agent tmp = agents.get(s);
+			Agent tmp = agents.get(s);
+			synchronized (tmp) { //TODO: we need to put the agents in Alphabetical order
 				if (tmp == null) {
 					for (String i:serials){agents.get(i).release();} // release all agents and then return false
 					return false;

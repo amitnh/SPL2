@@ -5,7 +5,7 @@ import bgu.spl.mics.application.passiveObjects.Agent;
 import bgu.spl.mics.application.passiveObjects.Squad;
 import javafx.util.Pair;
 
-public class AgentsAvailableEvent implements Event<List<Object>> { //first boolean second List<string>, third int
+public class AgentsAvailableEvent implements Event<List<Object>> { //first   List<string>, second int
     private List<String> serials;
     public AgentsAvailableEvent(List<String> serials)
     {

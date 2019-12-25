@@ -46,12 +46,13 @@ public class MI6Runner {
             /////get inventory
             JsonArray inputinventory = inputjson.get("inventory").getAsJsonArray();
             String[] inputgadgets = new String[inputinventory.size()];
-            for(int j=0;j<inputinventory.size();j++)
+            for(int i=0;i<inputinventory.size();i++)
             {
-                inputgadgets[j] = inputinventory.get(j).getAsJsonObject().get("name").getAsString();
+                inputgadgets[i] = inputinventory.get(i).getAsString();
             }
             Inventory inventory = Inventory.getInstance();
             inventory.load(inputgadgets);
+
 
 
             /////get squad
@@ -65,6 +66,7 @@ public class MI6Runner {
                 oo.setName(inputsquad.get(i).getAsJsonObject().get("name").getAsString());
                 oo.setSerialNumber(inputsquad.get(i).getAsJsonObject().get("serialNumber").getAsString());
                 inputagents[i] =oo;
+
             }
             squad.load(inputagents);
 
@@ -102,6 +104,8 @@ public class MI6Runner {
 
                     missions.add(mission);
                 }
+
+
                 Intelligences.add(new Intelligence(missions));
             }
         } catch (FileNotFoundException e) {

@@ -2,6 +2,8 @@ package bgu.spl.mics.application.passiveObjects;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
+
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -14,7 +16,7 @@ import java.util.List;
  * You can add ONLY private fields and methods to this class as you see fit.
  */
 public class Inventory {
-	private List<String> gadgets;
+	private List<String> gadgets = new LinkedList<>();
 	private static Inventory instance= new Inventory();
 	/**
      * Retrieves the single instance of this class.

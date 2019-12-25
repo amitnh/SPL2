@@ -40,11 +40,7 @@ public class Moneypenny extends Subscriber {
 			timeTick= b.getTime();
 		} ); // TODO: callback
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
-			//SYNC?
-			Boolean isready = squad.getAgents(e.getSerials());
-
 			List<Object> futureresult = new LinkedList<>();
-			futureresult.add(true);
 			futureresult.add(squad.getAgents(e.getSerials()));
 			futureresult.add(this.id);
 			this.complete(e,futureresult);
