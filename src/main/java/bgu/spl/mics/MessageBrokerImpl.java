@@ -13,8 +13,8 @@ public class MessageBrokerImpl implements MessageBroker {
 	 * Retrieves the single instance of this class.
 	 */
 	private static MessageBrokerImpl instance =new MessageBrokerImpl(); //makes the class singelton
-	private HashMap<Class<? extends Event>,LinkedList<Subscriber>> subscribeEventMap = new HashMap<Class<? extends Event>,LinkedList<Subscriber>>();
-	private HashMap<Class<? extends Broadcast>,LinkedList<Subscriber>> subscribeBroadcastMap = new HashMap<Class<? extends Broadcast>,LinkedList<Subscriber>>();
+	private ConcurrentHashMap<Class<? extends Event>,LinkedList<Subscriber>> subscribeEventMap = new ConcurrentHashMap<Class<? extends Event>,LinkedList<Subscriber>>();
+	private ConcurrentHashMap<Class<? extends Broadcast>,LinkedList<Subscriber>> subscribeBroadcastMap = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>> subscribersQueueMap = new ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>>();
 	private ConcurrentHashMap<Event,Future> futureHashMap = new ConcurrentHashMap<Event,Future>();
 
@@ -26,19 +26,16 @@ public class MessageBrokerImpl implements MessageBroker {
 	}
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, Subscriber m) {
+		subscribeEventMap.putIfAbsent(type,new LinkedList<>());
 		synchronized (type)
 		{
-			if(!subscribeEventMap.containsKey(type))
-				subscribeEventMap.put(type,new LinkedList<Subscriber>());
 			subscribeEventMap.get(type).add(m);
 		}
 	}
 	@Override
 	public void subscribeBroadcast(Class<? extends Broadcast> type, Subscriber m) {
-		synchronized (type)
-		{
-			if(!subscribeBroadcastMap.containsKey(type))
-				subscribeBroadcastMap.put(type,new LinkedList<Subscriber>());
+		subscribeBroadcastMap.putIfAbsent(type, new LinkedList<>());
+		synchronized (type) {
 			subscribeBroadcastMap.get(type).add(m);
 		}
 	}
@@ -84,7 +81,8 @@ public class MessageBrokerImpl implements MessageBroker {
 	@Override
 	public void register(Subscriber m) {
 		// ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>> subscribersQueueMap;
-		subscribersQueueMap.putIfAbsent(m,new LinkedBlockingQueue<Message>()); // works atomically
+			LinkedBlockingQueue<Message> que = new LinkedBlockingQueue<>();
+			subscribersQueueMap.putIfAbsent(m,que); // works atomically
 	}
 
 	@Override

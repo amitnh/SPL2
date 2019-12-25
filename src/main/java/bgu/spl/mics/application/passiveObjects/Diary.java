@@ -1,5 +1,11 @@
 package bgu.spl.mics.application.passiveObjects;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,8 +48,39 @@ public class Diary {
 	 * List of all the reports in the diary.
 	 * This method is called by the main method in order to generate the output.
 	 */
-	public void printToFile(String filename){
+	public void printToFile(String filename) throws IOException {
 		//TODO: Implement this
+		JsonObject toprint = new JsonObject();
+		JsonArray reports = new JsonArray();
+		for(Report report : this.reports) {
+			JsonObject mission = new JsonObject();
+			mission.addProperty("missionName", report.getMissionName());
+			mission.addProperty("m", report.getM());
+			mission.addProperty("moneypenny", report.getMoneypenny());
+			JsonArray tmparray = new JsonArray();
+			for(String serial : report.getAgentsSerialNumbersNumber()){
+				tmparray.add(serial);
+			}
+			mission.addProperty("agentsSerialNumbers", tmparray.getAsString());
+			for(String name : report.getAgentsNames()){
+				tmparray.add(name);
+			}
+			mission.addProperty("agentsNames", tmparray.getAsString());
+			mission.addProperty("gadgetName", report.getGadgetName());
+			mission.addProperty("timeCreated", report.getTimeCreated());
+			mission.addProperty("timeIssued", report.getTimeIssued());
+			mission.addProperty("qTime", report.getQTime());
+
+			reports.add(mission);
+
+		}
+		toprint.add("reports", reports);
+		toprint.addProperty("total", reports.size());
+
+		FileWriter file = new FileWriter(filename);
+		file.write(new GsonBuilder().setPrettyPrinting().create().toJson(toprint));
+		file.close();
+
 	}
 
 	/**

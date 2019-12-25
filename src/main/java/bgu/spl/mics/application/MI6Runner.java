@@ -31,7 +31,7 @@ import sun.awt.image.ImageWatched;
  */
 
 public class MI6Runner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO Implement this
         MessageBroker MB = MessageBrokerImpl.getInstance();
         int numofMoneypennys=0;
@@ -126,6 +126,8 @@ public class MI6Runner {
         }
         for(Intelligence x : Intelligences)
             new Thread(x).start();
-
+        Diary.getInstance().printToFile("diaryOutputFile.json");
+        Inventory.getInstance().printToFile("inventoryOutputFile.json");
     }
+
 }
