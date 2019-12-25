@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.subscribers;
 
+import bgu.spl.mics.Future;
 import bgu.spl.mics.MessageBroker;
 import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
@@ -10,6 +11,10 @@ import bgu.spl.mics.application.TickBroadcast;
 import bgu.spl.mics.application.passiveObjects.Diary;
 import bgu.spl.mics.application.passiveObjects.Report;
 import bgu.spl.mics.application.passiveObjects.Squad;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.util.Pair;
+
+import java.util.List;
 
 /**
  * M handles ReadyEvent - fills a report and sends agents to mission.
@@ -41,7 +46,8 @@ public class M extends Subscriber {
 
 			report.setTimeCreated(timeTick);
 			boolean isCompleted = false;
-			if (getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers())).get()) {
+			Future<List<Object>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
+			if((Boolean)agentevent.get().get(0))
 				if (getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget())).get()) {
 					report.setQTime(timeTick);
 					if (e.getInfo().getTimeExpired()>=timeTick)
@@ -49,10 +55,11 @@ public class M extends Subscriber {
 						isCompleted=true;
 					}
 				}
-			}
+
+
 				complete(e,isCompleted);
-			report.setAgentsNames(); ///TODO
-			report.setMoneypenny();
+			report.setAgentsNames((List<String>)(agentevent.get().get(1))); ///TODO
+			report.setMoneypenny((int)agentevent.get().get(2));
 			report.setAgentsSerialNumbersNumber(e.getInfo().getSerialAgentsNumbers());
 			report.setGadgetName(e.getInfo().getGadget());
 			report.setM(id);

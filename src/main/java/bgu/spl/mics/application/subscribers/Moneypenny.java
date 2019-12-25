@@ -8,6 +8,10 @@ import bgu.spl.mics.application.GadgetAvailableEvent;
 import bgu.spl.mics.application.MissionReceivedEvent;
 import bgu.spl.mics.application.TickBroadcast;
 import bgu.spl.mics.application.passiveObjects.Squad;
+import javafx.util.Pair;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Only this type of Subscriber can access the squad.
@@ -18,6 +22,7 @@ import bgu.spl.mics.application.passiveObjects.Squad;
  */
 public class Moneypenny extends Subscriber {
 	private Squad squad;
+	private int timeTick;
 	private static int totalofMoneypennys=0;
 	private int id;
 	public Moneypenny() {
@@ -31,10 +36,19 @@ public class Moneypenny extends Subscriber {
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)->{});
+		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
+			timeTick= b.getTime();
+		} ); // TODO: callback
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
-			this.complete(e,squad.getAgents(e.getSerials()));
-			
+			//SYNC?
+			Boolean isready = squad.getAgents(e.getSerials());
+
+			List<Object> futureresult = new LinkedList<>();
+			futureresult.add(true);
+			futureresult.add(squad.getAgents(e.getSerials()));
+			futureresult.add(this.id);
+			this.complete(e,futureresult);
+
 		} ); // use lambdas
 		this.run();
 	}
