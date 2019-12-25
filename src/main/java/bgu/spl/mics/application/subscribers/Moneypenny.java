@@ -23,9 +23,9 @@ public class Moneypenny extends Subscriber {
 	private static int totalofMoneypennys=0;
 	private int id;
 	public Moneypenny() {
-		super("Moneypenny");
+		super("Moneypenny" + totalofMoneypennys);
 		// TODO Implement this
-		totalofMoneypennys+=1;
+		++totalofMoneypennys;
 		this.id=totalofMoneypennys;
 		squad = Squad.getInstance();
 	}

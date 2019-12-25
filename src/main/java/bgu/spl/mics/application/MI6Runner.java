@@ -126,6 +126,8 @@ public class MI6Runner {
         }
         for(Intelligence x : Intelligences)
             new Thread(x).start();
+
+
         Diary.getInstance().printToFile("diaryOutputFile.json");
         Inventory.getInstance().printToFile("inventoryOutputFile.json");
     }

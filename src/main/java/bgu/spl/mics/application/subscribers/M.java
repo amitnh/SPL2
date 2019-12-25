@@ -25,8 +25,8 @@ public class M extends Subscriber {
 	private int id;
 	private static int totalMs=0;
 	public M() {
-		super("M");
-		totalMs+=1;
+		super("M" + totalMs);
+		++totalMs;
 		this.id = totalMs;
 
 	}
