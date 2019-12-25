@@ -44,8 +44,10 @@ public class Squad {
 		// TODO
 		for (String s:serials)
 		{
-			synchronized (s) {
-				agents.get(s).release();
+			Agent tmp = agents.get(s);
+			synchronized (tmp) {
+				tmp.release();
+				tmp.notifyAll();
 			}
 		}
 	}
@@ -56,7 +58,7 @@ public class Squad {
 	 */
 	public void sendAgents(List<String> serials, int time){
 		// TODO Implement this
-		try{Thread.sleep(time);}catch (Exception e){};
+		try{Thread.sleep(time);}catch (Exception e){}; //Send the agent to a trip to Paris
 		releaseAgents(serials);
 	}
 

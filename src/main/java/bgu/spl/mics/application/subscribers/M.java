@@ -4,10 +4,7 @@ import bgu.spl.mics.Future;
 import bgu.spl.mics.MessageBroker;
 import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
-import bgu.spl.mics.application.AgentsAvailableEvent;
-import bgu.spl.mics.application.GadgetAvailableEvent;
-import bgu.spl.mics.application.MissionReceivedEvent;
-import bgu.spl.mics.application.TickBroadcast;
+import bgu.spl.mics.application.*;
 import bgu.spl.mics.application.passiveObjects.Diary;
 import bgu.spl.mics.application.passiveObjects.Report;
 import bgu.spl.mics.application.passiveObjects.Squad;
@@ -43,7 +40,6 @@ public class M extends Subscriber {
 		this.subscribeEvent(MissionReceivedEvent.class,(MissionReceivedEvent e)->
 		{
 			Report report = new Report();
-
 			report.setTimeCreated(timeTick);
 			boolean isCompleted = false;
 			Future<List<Object>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
@@ -52,8 +48,10 @@ public class M extends Subscriber {
 					if (e.getInfo().getTimeExpired()>=timeTick)
 					{
 						isCompleted=true;
+						getSimplePublisher().sendEvent(new SendAgentsEvent(e.getInfo().getSerialAgentsNumbers(),e.getInfo().getDuration())); // send agents, if misson not completed reales agents
 					}
 				}
+
 
 
 			complete(e,isCompleted);

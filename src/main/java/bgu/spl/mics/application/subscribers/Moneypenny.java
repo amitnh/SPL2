@@ -3,10 +3,7 @@ package bgu.spl.mics.application.subscribers;
 import bgu.spl.mics.MessageBroker;
 import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
-import bgu.spl.mics.application.AgentsAvailableEvent;
-import bgu.spl.mics.application.GadgetAvailableEvent;
-import bgu.spl.mics.application.MissionReceivedEvent;
-import bgu.spl.mics.application.TickBroadcast;
+import bgu.spl.mics.application.*;
 import bgu.spl.mics.application.passiveObjects.Squad;
 import javafx.util.Pair;
 
@@ -40,12 +37,18 @@ public class Moneypenny extends Subscriber {
 			timeTick= b.getTime();
 		} ); // TODO: callback
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
+
 			List<Object> futureresult = new LinkedList<>();
 			futureresult.add(squad.getAgents(e.getSerials()));
 			futureresult.add(this.id);
 			this.complete(e,futureresult);
 
 		} ); // use lambdas
+		this.subscribeEvent(SendAgentsEvent.class,(SendAgentsEvent e)->{
+			squad.sendAgents(e.getSerials(),e.getTime());
+			this.complete(e,true);
+		} ); // use lambdas
+
 		this.run();
 	}
 
