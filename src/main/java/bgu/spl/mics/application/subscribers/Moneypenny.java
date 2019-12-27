@@ -49,7 +49,6 @@ public class Moneypenny extends Subscriber {
 			this.complete(e,true);
 		} ); // use lambdas
 
-		this.run();
 	}
 
 }

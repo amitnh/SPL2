@@ -19,12 +19,14 @@ public class Intelligence extends Subscriber{
 
 	private LinkedList<MissionInfo> missions;
 	private long timeTick;
-
+	private int id;
+	private static int totalMs=0;
 	public Intelligence(LinkedList<MissionInfo> missions) {
-		super("Change_This_Name");
+		super("intelligence" +totalMs);
 		// TODO Implement this
 		this.missions= missions;
-		initialize();
+		++totalMs;
+		this.id = totalMs;
 	}
 
 	@Override
@@ -32,6 +34,7 @@ public class Intelligence extends Subscriber{
 		// TODO Implement this.
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
+			System.out.println(timeTick);
 			Sendmissions();
 		} );
 
@@ -40,6 +43,8 @@ public class Intelligence extends Subscriber{
 	private void Sendmissions() {
 		for(MissionInfo e : missions) {
 			if (e.getTimeIssued() <= timeTick) {
+				System.out.println(e.getMissionName());
+
 				this.getSimplePublisher().sendEvent(new MissionReceivedEvent(e));
 				missions.remove(e);
 			}

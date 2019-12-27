@@ -36,6 +36,7 @@ public class MI6Runner {
         MessageBroker MB = MessageBrokerImpl.getInstance();
         int numofMoneypennys=0;
         int numofMs=0;
+        long time=0;
         LinkedList<Intelligence> Intelligences = new LinkedList<>();
 
         Gson gson = new Gson();
@@ -80,6 +81,8 @@ public class MI6Runner {
             //Create Moneypennys
             numofMoneypennys = inputservices.getAsJsonObject().get("Moneypenny").getAsInt();
 
+            //get time
+            time = inputservices.getAsJsonObject().get("time").getAsLong();
 
             //Create intelligence
             JsonArray inputintelligence = inputservices.get("intelligence").getAsJsonArray();
@@ -123,10 +126,14 @@ public class MI6Runner {
         for(int i=0; i<numofMoneypennys; i++)
         {
             new Thread(new Moneypenny()).start();
+
         }
         for(Intelligence x : Intelligences)
             new Thread(x).start();
 
+
+        //Make Time Serviece
+        new Thread(new TimeService(time)).start();
 
         Diary.getInstance().printToFile("diaryOutputFile.json");
         Inventory.getInstance().printToFile("inventoryOutputFile.json");

@@ -1,9 +1,6 @@
 package bgu.spl.mics.application.publishers;
 
-import bgu.spl.mics.Broadcast;
-import bgu.spl.mics.MessageBroker;
-import bgu.spl.mics.MessageBrokerImpl;
-import bgu.spl.mics.Publisher;
+import bgu.spl.mics.*;
 import bgu.spl.mics.application.TickBroadcast;
 
 /**
@@ -15,35 +12,32 @@ import bgu.spl.mics.application.TickBroadcast;
  * You can add private fields and public methods to this class.
  * You MAY change constructor signatures and even add new public constructors.
  */
-public class TimeService extends Publisher {
+public class TimeService extends Subscriber {
 
-	private long now;
-	private TickBroadcast tickBroadcast = new TickBroadcast();;
+	private long now,timeout,statingTime;
 
-	public TimeService() {
+	public TimeService(long timeout) {
 		super("TimeService");
 		// TODO Implement this
+		statingTime = System.currentTimeMillis()/100; // everything in Ticks
+		this.timeout = timeout;
+		now = System.currentTimeMillis()/100;
+
+
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		now = System.currentTimeMillis();
+		this.terminate();
 
-	}
-
-	@Override
-	public void run() {
-		// TODO Implement this
-		while(true) { //CHANGE THIS
+		while(now-statingTime<timeout) { //CHANGE THIS
 
 			////DO EVERY 100ms:
-			if (System.currentTimeMillis() - now > 100) {
-				tickBroadcast.Tick();
-				now = System.currentTimeMillis();
-				this.getSimplePublisher().sendBroadcast(tickBroadcast);
+			if (System.currentTimeMillis()/100 - now > 0) {
+				now = System.currentTimeMillis()/100;
+				getSimplePublisher().sendBroadcast(new TickBroadcast(now-statingTime));
 			}
 		}
 	}
-
 }

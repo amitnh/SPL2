@@ -36,6 +36,8 @@ public class M extends Subscriber {
 		diary = Diary.getInstance();
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
+			System.out.println("subscriber: " + this.getName() + " time tick:" + timeTick);
+
 		} ); // TODO: callback
 		this.subscribeEvent(MissionReceivedEvent.class,(MissionReceivedEvent e)->
 		{
@@ -65,7 +67,7 @@ public class M extends Subscriber {
 			report.setTimeIssued(e.getInfo().getTimeIssued());
 			diary.addReport(report);
 		}); // use lambda
-		this.run();
+
 	}
 
 }

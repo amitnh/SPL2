@@ -30,18 +30,15 @@ public class MessageBrokerImpl implements MessageBroker {
 		synchronized (type)
 		{
 			subscribeEventMap.get(type).add(m);
-			System.out.println("subscriber: " + m.getName() + " sucsessfully subscribed to Event: " + type.toString());
-
 		}
 	}
 	@Override
 	public void subscribeBroadcast(Class<? extends Broadcast> type, Subscriber m) {
 		subscribeBroadcastMap.putIfAbsent(type,new LinkedList<>());
 		synchronized (type) {
-			subscribeBroadcastMap.get(type).add(m);
-			System.out.println("subscriber: " + m.getName() + " sucsessfully subscribed to brodcast: " + type.toString());
-		}
+				subscribeBroadcastMap.get(type).add(m);
 
+			}
 	}
 
 	@Override
@@ -51,12 +48,12 @@ public class MessageBrokerImpl implements MessageBroker {
 
 	@Override
 	public void sendBroadcast(Broadcast b) { // need to think again on the sync $$$$$$$$$$$$$$$$$$$$$$$$
-		for (Subscriber i:subscribeBroadcastMap.get(b.getClass()))
-		{
+		for (Subscriber i : subscribeBroadcastMap.get(b.getClass())) {
 			synchronized (i) {
+				subscribersQueueMap.putIfAbsent(i, new LinkedBlockingQueue<>());
 				try {
 					subscribersQueueMap.get(i).put(b);
-				} catch (Exception exp) {}
+				} catch (Exception exp){}
 			}
 		}
 	}
