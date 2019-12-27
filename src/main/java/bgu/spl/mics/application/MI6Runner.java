@@ -133,7 +133,9 @@ public class MI6Runner {
 
 
         //Make Time Serviece
-        new Thread(new TimeService(time)).start();
+        Thread timeSer = new Thread(new TimeService(time));
+        timeSer.start();
+        try{timeSer.join();} catch (Exception exp){} // Main waits for TimeService to Die slowly
 
         Diary.getInstance().printToFile("diaryOutputFile.json");
         Inventory.getInstance().printToFile("inventoryOutputFile.json");

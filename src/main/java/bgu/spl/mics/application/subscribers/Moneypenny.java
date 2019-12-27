@@ -35,6 +35,8 @@ public class Moneypenny extends Subscriber {
 		// TODO Implement this
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
+			System.out.println("subscriber: " + this.getName() + " time tick:" + timeTick);
+
 		} ); // TODO: callback
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
 

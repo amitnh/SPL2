@@ -34,7 +34,7 @@ public class Intelligence extends Subscriber{
 		// TODO Implement this.
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
-			System.out.println(timeTick);
+			System.out.println("time Tick: " + timeTick);
 			Sendmissions();
 		} );
 

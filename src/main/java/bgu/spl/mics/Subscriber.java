@@ -117,7 +117,7 @@ public abstract class Subscriber extends RunnableSubPub {
         while (!terminated) {
             //System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)
             try {Message curMsg = msg.awaitMessage(this);
-                callbackHashMap.get(curMsg).call(curMsg);
+                callbackHashMap.get(curMsg.getClass()).call(curMsg);
             } catch (Exception e){}
 
 

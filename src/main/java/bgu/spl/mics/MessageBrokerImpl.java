@@ -13,7 +13,7 @@ public class MessageBrokerImpl implements MessageBroker {
 	 * Retrieves the single instance of this class.
 	 */
 	private static MessageBrokerImpl instance =new MessageBrokerImpl(); //makes the class singelton
-	private ConcurrentHashMap<Class<? extends Event>,LinkedList<Subscriber>> subscribeEventMap = new ConcurrentHashMap<Class<? extends Event>,LinkedList<Subscriber>>();
+	private ConcurrentHashMap<Class<? extends Event>,LinkedList<Subscriber>> subscribeEventMap = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<Class<? extends Broadcast>,LinkedList<Subscriber>> subscribeBroadcastMap = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>> subscribersQueueMap = new ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>>();
 	private ConcurrentHashMap<Event,Future> futureHashMap = new ConcurrentHashMap<Event,Future>();
@@ -48,16 +48,25 @@ public class MessageBrokerImpl implements MessageBroker {
 
 	@Override
 	public void sendBroadcast(Broadcast b) { // need to think again on the sync $$$$$$$$$$$$$$$$$$$$$$$$
-		for (Subscriber i : subscribeBroadcastMap.get(b.getClass())) {
-			synchronized (i) {
-				subscribersQueueMap.putIfAbsent(i, new LinkedBlockingQueue<>());
-				try {
-					subscribersQueueMap.get(i).put(b);
-				} catch (Exception exp){}
+try {
+	for (Subscriber m : subscribeBroadcastMap.get(b.getClass())) {
+		subscribersQueueMap.putIfAbsent(m, new LinkedBlockingQueue<>());
+		synchronized (m) {
+			try {
+
+				subscribersQueueMap.get(m).put(b);
+				m.notifyAll();
+			} catch (Exception exp) {
 			}
 		}
 	}
+}
+catch (NullPointerException nullExp){
+	//System.out.println("STOP, ata Nashnash");
+}
 
+
+	}
 	
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
@@ -112,7 +121,7 @@ public class MessageBrokerImpl implements MessageBroker {
 				try{  m.wait(); }
 				catch (InterruptedException ignored){}//m.interuppt;} ??????????????
 			}
-			return subscribersQueueMap.get(m).poll();
+			return subscribersQueueMap.get(m).remove();
 		}
 	}
 
