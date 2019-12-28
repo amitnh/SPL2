@@ -18,6 +18,7 @@ import java.util.List;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class Moneypenny extends Subscriber {
+	private Boolean calledTerminate=false;
 	private Squad squad;
 	private long timeTick;
 	private static int totalofMoneypennys=0;
@@ -36,27 +37,37 @@ public class Moneypenny extends Subscriber {
 		// TODO Implement this
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
+		} );
 
-		} ); // TODO: callback
+		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
+			terminate();
+
+		});// TODO Implement this
+
+
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
 			Pair<List<String>, Integer> futureresult;
 			System.out.println(this.getName() + " getting agents to event");
 
 			if(squad.getAgents(e.getSerials())) {
-				futureresult = new Pair<>(squad.getAgentsNames(e.getSerials()), this.id);
-				this.complete(e, futureresult);
+					futureresult = new Pair<>(squad.getAgentsNames(e.getSerials()), this.id);
+					this.complete(e, futureresult);
+
 			}
 			else {
 				futureresult = new Pair<>(null,this.id);
 				this.complete(e, futureresult);
 			}
-
 		} ); // use lambdas
+
+
 		this.subscribeEvent(SendAgentsEvent.class,(SendAgentsEvent e)->{
 			System.out.println(this.getName() + "sending agents to event");
 			squad.sendAgents(e.getSerials(),e.getTime());
 			this.complete(e,true);
 		} ); // use lambdas
+
+
 		this.subscribeEvent(ReleaseAgentsEvent.class,(ReleaseAgentsEvent e)->{
 			System.out.println(this.getName() + "Releasing agents from event");
 			squad.releaseAgents(e.getSeriealstoRelease());

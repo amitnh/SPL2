@@ -1,6 +1,7 @@
 package bgu.spl.mics.application.publishers;
 
 import bgu.spl.mics.*;
+import bgu.spl.mics.application.TerminateBroadcast;
 import bgu.spl.mics.application.TickBroadcast;
 
 /**
@@ -39,5 +40,6 @@ public class TimeService extends Subscriber {
 				getSimplePublisher().sendBroadcast(new TickBroadcast(now-statingTime));
 			}
 		}
+		getSimplePublisher().sendBroadcast(new TerminateBroadcast());
 	}
 }

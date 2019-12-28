@@ -3,6 +3,7 @@ package bgu.spl.mics.application.publishers;
 import bgu.spl.mics.Publisher;
 import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.MissionReceivedEvent;
+import bgu.spl.mics.application.TerminateBroadcast;
 import bgu.spl.mics.application.TickBroadcast;
 import bgu.spl.mics.application.passiveObjects.MissionInfo;
 
@@ -36,6 +37,11 @@ public class Intelligence extends Subscriber{
 			timeTick= b.getTime();
 			Sendmissions();
 		} );
+
+		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
+			terminate();
+		});// TODO Implement this
+
 
 	}
 

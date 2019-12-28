@@ -1,5 +1,7 @@
 package bgu.spl.mics;
 
+import bgu.spl.mics.application.TerminateBroadcast;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

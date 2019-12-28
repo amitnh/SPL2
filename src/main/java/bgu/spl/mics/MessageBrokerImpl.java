@@ -61,8 +61,7 @@ try {
 		}
 	}
 }
-catch (NullPointerException nullExp){
-	//System.out.println("STOP, ata Nashnash");
+catch (Exception ignore){
 }
 
 

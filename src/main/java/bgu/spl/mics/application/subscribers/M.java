@@ -38,7 +38,13 @@ public class M extends Subscriber {
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
 
-		} ); // TODO: callback
+		} );
+
+		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
+			terminate();
+		});// TODO Implement this
+
+
 		this.subscribeEvent(MissionReceivedEvent.class,(MissionReceivedEvent e)->
 		{
 			System.out.println(getName() + " got new mission: "+ e.getInfo().getMissionName() +" time now: "+ timeTick);
@@ -48,7 +54,10 @@ public class M extends Subscriber {
 
 			Future<Pair<List<String>, Integer>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
 			if(agentevent.get().getKey()!=null) { //if moneypenny got agents ready
-				if (getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget())).get()) {
+				if (getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget())).get().getValue()) { //terminated{
+					getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers())); //Release Agents if overtime and notify
+				}
+				else if (getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget())).get().getKey()) {
 					report.setQTime((int) timeTick);
 					if (e.getInfo().getTimeExpired() >= timeTick) {
 						isCompleted = true;

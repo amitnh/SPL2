@@ -1,5 +1,9 @@
 package bgu.spl.mics.application.passiveObjects;
 
+import bgu.spl.mics.Event;
+import bgu.spl.mics.Future;
+import bgu.spl.mics.Message;
+import bgu.spl.mics.Subscriber;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -8,6 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Passive object representing the diary where all reports are stored.
@@ -23,8 +29,8 @@ public class Diary {
 	 */
 	private static Diary instance = new Diary();
 	private  List<Report> reports = new LinkedList<>();
+
 	public static Diary getInstance() {
-		//TODO: Implement this
 		return instance;
 	}
 

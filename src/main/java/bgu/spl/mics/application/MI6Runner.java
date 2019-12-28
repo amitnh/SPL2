@@ -97,7 +97,7 @@ public class MI6Runner {
                     mission.setDuration(inputmissions.get(j).getAsJsonObject().get("duration").getAsInt());
                     mission.setTimeExpired(inputmissions.get(j).getAsJsonObject().get("timeExpired").getAsInt());
                     mission.setTimeIssued(inputmissions.get(j).getAsJsonObject().get("timeIssued").getAsInt());
-                    mission.setMissionName(inputmissions.get(j).getAsJsonObject().get("name").getAsString());
+                    mission.setMissionName(inputmissions.get(j).getAsJsonObject().get("missionName").getAsString());
                     mission.setGadget(inputmissions.get(j).getAsJsonObject().get("gadget").getAsString());
                     List<String> serialAgentsNumbers = new LinkedList<>();
                     JsonArray agentsneeded = inputmissions.get(j).getAsJsonObject().get("serialAgentsNumbers").getAsJsonArray();

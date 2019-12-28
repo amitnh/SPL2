@@ -79,9 +79,10 @@ public class Squad {
 					return false;
 				}
 				while (!tmp.isAvailable()) {
-					try { tmp.wait(); } catch (Exception e) {}
+					try { tmp.wait();} catch (Exception e) {}
 				}
 				tmp.acquire();
+
 			}
 		}
 		return true;
