@@ -51,13 +51,17 @@ public class M extends Subscriber {
 			Report report = new Report();
 			report.setTimeCreated((int)timeTick);
 			boolean isCompleted = false;
+			boolean isTerminated = false;
 
 			Future<Pair<List<String>, Integer>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
 			if(agentevent.get().getKey()!=null) { //if moneypenny got agents ready
-				if (getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget())).get().getValue()) { //terminated{
+				Future<Pair<Boolean,Boolean>> gadgetevent = getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget()));
+				if (gadgetevent.get().getValue()) { //terminated{
 					getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers())); //Release Agents if overtime and notify
+					terminate();
+					isTerminated=true;
 				}
-				else if (getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget())).get().getKey()) {
+				else if (gadgetevent.get().getKey()) {
 					report.setQTime((int) timeTick);
 					if (e.getInfo().getTimeExpired() >= timeTick) {
 						isCompleted = true;
@@ -80,7 +84,7 @@ public class M extends Subscriber {
 				report.setTimeIssued(e.getInfo().getTimeIssued());
 				diary.addReport(report);
 			}
-			else
+			else if(!isTerminated)
 				getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers()));
 
 			complete(e,isCompleted);

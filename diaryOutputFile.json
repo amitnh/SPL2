@@ -1,4 +1,534 @@
 {
-  "reports": [],
-  "total": 0
+  "reports": [
+    {
+      "missionName": "Snuffles was my slave name, you can call me snowball because my fur is pretty and white.",
+      "m": 1,
+      "moneypenny": 1,
+      "agentsSerialNumbers": [
+        "002",
+        "004",
+        "006"
+      ],
+      "agentsNames": [
+        "Eyeholes Man",
+        "Morty Jr.",
+        "Fart"
+      ],
+      "gadgetName": "Futuristic guns",
+      "timeCreated": 1,
+      "timeIssued": 1,
+      "qTime": 1
+    },
+    {
+      "missionName": "I\u0027m the devil. What should I do when I fail? Give myself an ice cream?",
+      "m": 1,
+      "moneypenny": 2,
+      "agentsSerialNumbers": [
+        "005"
+      ],
+      "agentsNames": [
+        "Tophat Jones"
+      ],
+      "gadgetName": "Meeseeks Box",
+      "timeCreated": 3,
+      "timeIssued": 3,
+      "qTime": 3
+    },
+    {
+      "missionName": "Great, now I have to take over an entire planet because of your stupid boobs.",
+      "m": 1,
+      "moneypenny": 7,
+      "agentsSerialNumbers": [
+        "004",
+        "005"
+      ],
+      "agentsNames": [
+        "Morty Jr.",
+        "Tophat Jones"
+      ],
+      "gadgetName": "Dark matter",
+      "timeCreated": 4,
+      "timeIssued": 4,
+      "qTime": 4
+    },
+    {
+      "missionName": "The first rule of space travel kids is always check out distress beacons. Nine out of ten times it\u0027s a ship full of dead aliens and a bunch of free shit! One out of ten times it\u0027s a deadly trap, but... I\u0027m ready to roll those dice!",
+      "m": 1,
+      "moneypenny": 4,
+      "agentsSerialNumbers": [
+        "000",
+        "001",
+        "003",
+        "006"
+      ],
+      "agentsNames": [
+        "Mr. Meeseeks",
+        "Tammy Gueterman",
+        "Jerry\u0027s Mytholog",
+        "Fart"
+      ],
+      "gadgetName": "Futuristic guns2",
+      "timeCreated": 6,
+      "timeIssued": 6,
+      "qTime": 6
+    },
+    {
+      "missionName": "So what if the most meaningful day in your life was a simulation operating at minimum complexity.",
+      "m": 1,
+      "moneypenny": 9,
+      "agentsSerialNumbers": [
+        "002",
+        "007"
+      ],
+      "agentsNames": [
+        "Eyeholes Man",
+        "Jessica"
+      ],
+      "gadgetName": "Curse Remover",
+      "timeCreated": 8,
+      "timeIssued": 8,
+      "qTime": 8
+    },
+    {
+      "missionName": "Yo! What up my glip glops!",
+      "m": 1,
+      "moneypenny": 3,
+      "agentsSerialNumbers": [
+        "002",
+        "003",
+        "004"
+      ],
+      "agentsNames": [
+        "Eyeholes Man",
+        "Jerry\u0027s Mytholog",
+        "Morty Jr."
+      ],
+      "gadgetName": "Purge Suit",
+      "timeCreated": 8,
+      "timeIssued": 8,
+      "qTime": 8
+    },
+    {
+      "missionName": "Aw, c\u0027mon Rick. That doesn\u0027t seem so bad.",
+      "m": 1,
+      "moneypenny": 6,
+      "agentsSerialNumbers": [
+        "001",
+        "004",
+        "005",
+        "006"
+      ],
+      "agentsNames": [
+        "Tammy Gueterman",
+        "Morty Jr.",
+        "Tophat Jones",
+        "Fart"
+      ],
+      "gadgetName": "Butter-passing robot",
+      "timeCreated": 13,
+      "timeIssued": 13,
+      "qTime": 13
+    },
+    {
+      "missionName": "WUBBA LUBBA DUB DUBS!!!",
+      "m": 1,
+      "moneypenny": 8,
+      "agentsSerialNumbers": [
+        "004",
+        "006"
+      ],
+      "agentsNames": [
+        "Morty Jr.",
+        "Fart"
+      ],
+      "gadgetName": "Morty\u0027s Mind Blowers2",
+      "timeCreated": 16,
+      "timeIssued": 16,
+      "qTime": 16
+    },
+    {
+      "missionName": "The first rule of space travel kids is always check out distress beacons. Nine out of ten times it\u0027s a ship full of dead aliens and a bunch of free shit! One out of ten times it\u0027s a deadly trap, but... I\u0027m ready to roll those dice!",
+      "m": 1,
+      "moneypenny": 5,
+      "agentsSerialNumbers": [
+        "001",
+        "004",
+        "005"
+      ],
+      "agentsNames": [
+        "Tammy Gueterman",
+        "Morty Jr.",
+        "Tophat Jones"
+      ],
+      "gadgetName": "Space cruiser",
+      "timeCreated": 16,
+      "timeIssued": 16,
+      "qTime": 16
+    },
+    {
+      "missionName": "I like what you got.",
+      "m": 1,
+      "moneypenny": 1,
+      "agentsSerialNumbers": [
+        "000",
+        "007"
+      ],
+      "agentsNames": [
+        "Mr. Meeseeks",
+        "Jessica"
+      ],
+      "gadgetName": "Meeseeks Box4",
+      "timeCreated": 20,
+      "timeIssued": 20,
+      "qTime": 20
+    },
+    {
+      "missionName": "Having a family doesn\u0027t mean that you stop being an individual.",
+      "m": 1,
+      "moneypenny": 7,
+      "agentsSerialNumbers": [
+        "001",
+        "003"
+      ],
+      "agentsNames": [
+        "Tammy Gueterman",
+        "Jerry\u0027s Mytholog"
+      ],
+      "gadgetName": "Shrink ray2",
+      "timeCreated": 23,
+      "timeIssued": 23,
+      "qTime": 23
+    },
+    {
+      "missionName": "Snuffles was my slave name, you can call me snowball because my fur is pretty and white.",
+      "m": 1,
+      "moneypenny": 4,
+      "agentsSerialNumbers": [
+        "007"
+      ],
+      "agentsNames": [
+        "Jessica"
+      ],
+      "gadgetName": "Grappling Shoes",
+      "timeCreated": 25,
+      "timeIssued": 25,
+      "qTime": 25
+    },
+    {
+      "missionName": "It\u0027s fine, everything is fine. Theres an infinite number of realities Morty and in a few dozen of those I got lucky and turned everything back to normal.",
+      "m": 1,
+      "moneypenny": 9,
+      "agentsSerialNumbers": [
+        "004",
+        "006",
+        "007"
+      ],
+      "agentsNames": [
+        "Morty Jr.",
+        "Fart",
+        "Jessica"
+      ],
+      "gadgetName": "Portal gun3",
+      "timeCreated": 25,
+      "timeIssued": 25,
+      "qTime": 25
+    },
+    {
+      "missionName": "Meeseeks are not born into this world fumbling for meaning, Jerry! We are created to serve a single purpose, for which we go to any lengths to fulfill.",
+      "m": 1,
+      "moneypenny": 3,
+      "agentsSerialNumbers": [
+        "001",
+        "002",
+        "005",
+        "006"
+      ],
+      "agentsNames": [
+        "Tammy Gueterman",
+        "Eyeholes Man",
+        "Tophat Jones",
+        "Fart"
+      ],
+      "gadgetName": "Portal gun",
+      "timeCreated": 25,
+      "timeIssued": 25,
+      "qTime": 25
+    },
+    {
+      "missionName": "Let me out, what you see is not the same person as me. My life\u0027s a lie. I\u0027m not who you\u0027re looking. Let me out. Set me free. I\u0027m really old. This isn\u0027t me. My real body is slowly dieing in a vat. Is anybody listening? Can anyone understand? Stop looking at me like that and actually help me. Help me. Help me I\u0027m gunna die.",
+      "m": 1,
+      "moneypenny": 0,
+      "agentsSerialNumbers": [
+        "000",
+        "002",
+        "003",
+        "004"
+      ],
+      "agentsNames": [
+        "Mr. Meeseeks",
+        "Eyeholes Man",
+        "Jerry\u0027s Mytholog",
+        "Morty Jr."
+      ],
+      "gadgetName": "Dark matter2",
+      "timeCreated": 26,
+      "timeIssued": 25,
+      "qTime": 26
+    },
+    {
+      "missionName": "You\u0027re like Hitler, except...Hitler cared about Germany, or something.",
+      "m": 1,
+      "moneypenny": 8,
+      "agentsSerialNumbers": [
+        "000",
+        "003",
+        "006"
+      ],
+      "agentsNames": [
+        "Mr. Meeseeks",
+        "Jerry\u0027s Mytholog",
+        "Fart"
+      ],
+      "gadgetName": "Dream inceptor",
+      "timeCreated": 27,
+      "timeIssued": 27,
+      "qTime": 27
+    },
+    {
+      "missionName": "That\u0027s the difference between you and me, Morty. I never go back to the carpet store.",
+      "m": 1,
+      "moneypenny": 5,
+      "agentsSerialNumbers": [
+        "002",
+        "003",
+        "006"
+      ],
+      "agentsNames": [
+        "Eyeholes Man",
+        "Jerry\u0027s Mytholog",
+        "Fart"
+      ],
+      "gadgetName": "Meeseeks Box2",
+      "timeCreated": 27,
+      "timeIssued": 27,
+      "qTime": 27
+    },
+    {
+      "missionName": "I\u0027m the devil. What should I do when I fail? Give myself an ice cream?",
+      "m": 1,
+      "moneypenny": 2,
+      "agentsSerialNumbers": [
+        "004"
+      ],
+      "agentsNames": [
+        "Morty Jr."
+      ],
+      "gadgetName": "Ionic Defibulizer3",
+      "timeCreated": 33,
+      "timeIssued": 33,
+      "qTime": 33
+    },
+    {
+      "missionName": "Great, now I have to take over an entire planet because of your stupid boobs.",
+      "m": 1,
+      "moneypenny": 4,
+      "agentsSerialNumbers": [
+        "003",
+        "006"
+      ],
+      "agentsNames": [
+        "Jerry\u0027s Mytholog",
+        "Fart"
+      ],
+      "gadgetName": "Demonic Alien Containment Box3",
+      "timeCreated": 34,
+      "timeIssued": 34,
+      "qTime": 34
+    },
+    {
+      "missionName": "I hate to break it to you, but what people call \u0027love\u0027 is just a chemical reaction that compels animals to breed. It hits hard Morty then it slowly fades leaving you stranded in a failing marriage. I did it. Your parents are going to do it. Break the cycle Morty, rise above, focus on science.",
+      "m": 1,
+      "moneypenny": 0,
+      "agentsSerialNumbers": [
+        "000",
+        "001",
+        "005",
+        "006"
+      ],
+      "agentsNames": [
+        "Mr. Meeseeks",
+        "Tammy Gueterman",
+        "Tophat Jones",
+        "Fart"
+      ],
+      "gadgetName": "Ionic Defibulizer",
+      "timeCreated": 37,
+      "timeIssued": 36,
+      "qTime": 37
+    },
+    {
+      "missionName": "Snuffles was my slave name, you can call me snowball because my fur is pretty and white.",
+      "m": 1,
+      "moneypenny": 6,
+      "agentsSerialNumbers": [
+        "000",
+        "002",
+        "006"
+      ],
+      "agentsNames": [
+        "Mr. Meeseeks",
+        "Eyeholes Man",
+        "Fart"
+      ],
+      "gadgetName": "Cognition amplifier3",
+      "timeCreated": 41,
+      "timeIssued": 41,
+      "qTime": 41
+    },
+    {
+      "missionName": "You\u0027re like Hitler, except...Hitler cared about Germany, or something.",
+      "m": 1,
+      "moneypenny": 8,
+      "agentsSerialNumbers": [
+        "000",
+        "003",
+        "004",
+        "005"
+      ],
+      "agentsNames": [
+        "Mr. Meeseeks",
+        "Jerry\u0027s Mytholog",
+        "Morty Jr.",
+        "Tophat Jones"
+      ],
+      "gadgetName": "Futuristic guns4",
+      "timeCreated": 42,
+      "timeIssued": 42,
+      "qTime": 42
+    },
+    {
+      "missionName": "I don\u0027t get it and I don\u0027t need to.",
+      "m": 1,
+      "moneypenny": 1,
+      "agentsSerialNumbers": [
+        "004",
+        "006"
+      ],
+      "agentsNames": [
+        "Morty Jr.",
+        "Fart"
+      ],
+      "gadgetName": "Time freezer",
+      "timeCreated": 43,
+      "timeIssued": 43,
+      "qTime": 43
+    },
+    {
+      "missionName": "Nobody exists on purpose. Nobody belongs anywhere. Everybody is going to die.",
+      "m": 1,
+      "moneypenny": 2,
+      "agentsSerialNumbers": [
+        "006",
+        "007"
+      ],
+      "agentsNames": [
+        "Fart",
+        "Jessica"
+      ],
+      "gadgetName": "Meeseeks Box3",
+      "timeCreated": 45,
+      "timeIssued": 45,
+      "qTime": 45
+    },
+    {
+      "missionName": "Ohh yea, you gotta get schwifty.",
+      "m": 1,
+      "moneypenny": 7,
+      "agentsSerialNumbers": [
+        "004"
+      ],
+      "agentsNames": [
+        "Morty Jr."
+      ],
+      "gadgetName": "Interdimensional cable TV box2",
+      "timeCreated": 45,
+      "timeIssued": 45,
+      "qTime": 45
+    },
+    {
+      "missionName": "Little tip, Morty. Never clean DNA vials with your spit.",
+      "m": 1,
+      "moneypenny": 9,
+      "agentsSerialNumbers": [
+        "000",
+        "003",
+        "006",
+        "007"
+      ],
+      "agentsNames": [
+        "Mr. Meeseeks",
+        "Jerry\u0027s Mytholog",
+        "Fart",
+        "Jessica"
+      ],
+      "gadgetName": "Neutrino bomb3",
+      "timeCreated": 46,
+      "timeIssued": 46,
+      "qTime": 46
+    },
+    {
+      "missionName": "Pluto\u0027s a planet.",
+      "m": 1,
+      "moneypenny": 3,
+      "agentsSerialNumbers": [
+        "001",
+        "002",
+        "003",
+        "006"
+      ],
+      "agentsNames": [
+        "Tammy Gueterman",
+        "Eyeholes Man",
+        "Jerry\u0027s Mytholog",
+        "Fart"
+      ],
+      "gadgetName": "Dark matter3",
+      "timeCreated": 51,
+      "timeIssued": 51,
+      "qTime": 51
+    },
+    {
+      "missionName": "Aww, gee, you got me there Rick.",
+      "m": 1,
+      "moneypenny": 8,
+      "agentsSerialNumbers": [
+        "002"
+      ],
+      "agentsNames": [
+        "Eyeholes Man"
+      ],
+      "gadgetName": "Interdimensional cable TV box",
+      "timeCreated": 60,
+      "timeIssued": 60,
+      "qTime": 60
+    },
+    {
+      "missionName": "Keep Summer safe.",
+      "m": 1,
+      "moneypenny": 5,
+      "agentsSerialNumbers": [
+        "002",
+        "005"
+      ],
+      "agentsNames": [
+        "Eyeholes Man",
+        "Tophat Jones"
+      ],
+      "gadgetName": "Portal gun2",
+      "timeCreated": 60,
+      "timeIssued": 60,
+      "qTime": 60
+    }
+  ],
+  "total": 29
 }

@@ -121,10 +121,8 @@ public abstract class Subscriber extends RunnableSubPub {
             try {Message curMsg = msg.awaitMessage(this);
                 callbackHashMap.get(curMsg.getClass()).call(curMsg);
             } catch (Exception e){}
-
-
-
-        }
+            }
+        System.out.println(this.getName()+" has fallen in battle");
     }
 
 }

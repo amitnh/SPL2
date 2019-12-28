@@ -32,6 +32,7 @@ public class Q extends Subscriber {
 
 		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
 			overtime = true;
+			terminate();
 		});// TODO Implement this
 
 		this.subscribeEvent(GadgetAvailableEvent.class, (GadgetAvailableEvent e) -> {

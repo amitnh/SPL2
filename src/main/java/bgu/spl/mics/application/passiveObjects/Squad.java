@@ -60,6 +60,7 @@ public class Squad {
 	public void sendAgents(List<String> serials, int time){
 		// TODO Implement this
 		try{Thread.sleep(time);}catch (Exception e){}; //Send the agent to a trip to Paris
+		System.out.println("realising agents");
 		releaseAgents(serials);
 	}
 
