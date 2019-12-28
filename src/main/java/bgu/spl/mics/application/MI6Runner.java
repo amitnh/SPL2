@@ -23,6 +23,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import sun.awt.image.ImageWatched;
 
 /** This is the Main class of the application. You should parse the input file, 
@@ -118,7 +119,7 @@ public class MI6Runner {
 
         }
 
-
+        List<Subscriber> subscriberList= new LinkedList<>();
         for(int i=0; i<numofMs; i++)
         {
             new Thread(new M()).start();
@@ -130,15 +131,19 @@ public class MI6Runner {
         }
         for(Intelligence x : Intelligences)
             new Thread(x).start();
-
+        new Thread(new Q()).start();
 
         //Make Time Serviece
         Thread timeSer = new Thread(new TimeService(time));
         timeSer.start();
+
         try{timeSer.join();} catch (Exception exp){} // Main waits for TimeService to Die slowly
+
 
         Diary.getInstance().printToFile("diaryOutputFile.json");
         Inventory.getInstance().printToFile("inventoryOutputFile.json");
+
+        System.out.println("Finished :)");
     }
 
 }

@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.passiveObjects;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class MissionInfo {
      */
     public void setSerialAgentsNumbers(List<String> serialAgentsNumbers) {
         // TODO Implement this
+		serialAgentsNumbers.sort( Comparator.comparing( String::toString ) );
+
 		this.serialAgentsNumbers = serialAgentsNumbers;
     }
 

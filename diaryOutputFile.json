@@ -1,4 +1,52 @@
 {
-  "reports": [],
-  "total": 0
+  "reports": [
+    {
+      "missionName": "Thunderball",
+      "m": 2,
+      "moneypenny": 0,
+      "agentsSerialNumbers": [
+        "006",
+        "007"
+      ],
+      "agentsNames": [
+        "Alec Trevelyan",
+        "James Bond"
+      ],
+      "gadgetName": "Sky Hook",
+      "timeCreated": 3,
+      "timeIssued": 3,
+      "qTime": 3
+    },
+    {
+      "missionName": "From Russia With Love",
+      "m": 2,
+      "moneypenny": 0,
+      "agentsSerialNumbers": [
+        "007"
+      ],
+      "agentsNames": [
+        "James Bond"
+      ],
+      "gadgetName": "Dagger shoe",
+      "timeCreated": 6,
+      "timeIssued": 6,
+      "qTime": 6
+    },
+    {
+      "missionName": "The World Is Not Enough",
+      "m": 2,
+      "moneypenny": 0,
+      "agentsSerialNumbers": [
+        "006"
+      ],
+      "agentsNames": [
+        "Alec Trevelyan"
+      ],
+      "gadgetName": "X-ray glasses",
+      "timeCreated": 16,
+      "timeIssued": 16,
+      "qTime": 16
+    }
+  ],
+  "total": 3
 }

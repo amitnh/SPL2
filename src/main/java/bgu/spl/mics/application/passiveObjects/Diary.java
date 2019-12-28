@@ -61,11 +61,14 @@ public class Diary {
 			for(String serial : report.getAgentsSerialNumbersNumber()){
 				tmparray.add(serial);
 			}
-			mission.addProperty("agentsSerialNumbers", tmparray.getAsString());
+			mission.add("agentsSerialNumbers", tmparray);
+
+			tmparray = new JsonArray();
+
 			for(String name : report.getAgentsNames()){
 				tmparray.add(name);
 			}
-			mission.addProperty("agentsNames", tmparray.getAsString());
+			mission.add("agentsNames", tmparray);
 			mission.addProperty("gadgetName", report.getGadgetName());
 			mission.addProperty("timeCreated", report.getTimeCreated());
 			mission.addProperty("timeIssued", report.getTimeIssued());

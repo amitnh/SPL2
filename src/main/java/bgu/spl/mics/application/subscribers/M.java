@@ -11,6 +11,7 @@ import bgu.spl.mics.application.passiveObjects.Squad;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class M extends Subscriber {
-	private int timeTick; // TODO: needs to be update when Broadcast
+	private long timeTick; // TODO: needs to be update when Broadcast
 	private Diary diary;
 	private int id;
 	private static int totalMs=0;
@@ -36,36 +37,45 @@ public class M extends Subscriber {
 		diary = Diary.getInstance();
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
-			System.out.println("subscriber: " + this.getName() + " time tick:" + timeTick);
 
 		} ); // TODO: callback
 		this.subscribeEvent(MissionReceivedEvent.class,(MissionReceivedEvent e)->
 		{
+			System.out.println(getName() + " got new mission: "+ e.getInfo().getMissionName() +" time now: "+ timeTick);
 			Report report = new Report();
-			report.setTimeCreated(timeTick);
+			report.setTimeCreated((int)timeTick);
 			boolean isCompleted = false;
-			Future<List<Object>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
+
+			Future<Pair<List<String>, Integer>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
+			if(agentevent.get().getKey()!=null) { //if moneypenny got agents ready
 				if (getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget())).get()) {
-					report.setQTime(timeTick);
-					if (e.getInfo().getTimeExpired()>=timeTick)
-					{
-						isCompleted=true;
-						getSimplePublisher().sendEvent(new SendAgentsEvent(e.getInfo().getSerialAgentsNumbers(),e.getInfo().getDuration())); // send agents, if misson not completed reales agents
+					report.setQTime((int) timeTick);
+					if (e.getInfo().getTimeExpired() >= timeTick) {
+						isCompleted = true;
+						getSimplePublisher().sendEvent(new SendAgentsEvent(e.getInfo().getSerialAgentsNumbers(), e.getInfo().getDuration())); // send agents, if misson not completed reales agents
 					}
 				}
 
+			}
 
+			if(isCompleted) {
+
+				report.setMoneypenny((int) agentevent.get().getValue());
+
+				report.setAgentsNames((List<String>) (agentevent.get().getKey()));
+				report.setAgentsSerialNumbersNumber(e.getInfo().getSerialAgentsNumbers());
+				report.setGadgetName(e.getInfo().getGadget());
+				report.setM(id);
+				report.setMissionName(e.getInfo().getMissionName());
+
+				report.setTimeIssued(e.getInfo().getTimeIssued());
+				diary.addReport(report);
+			}
+			else
+				getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers()));
 
 			complete(e,isCompleted);
-			report.setAgentsNames((List<String>)(agentevent.get().get(0))); ///TODO
-			report.setMoneypenny((int)agentevent.get().get(1));
-			report.setAgentsSerialNumbersNumber(e.getInfo().getSerialAgentsNumbers());
-			report.setGadgetName(e.getInfo().getGadget());
-			report.setM(id);
-			report.setMissionName(e.getInfo().getMissionName());
 
-			report.setTimeIssued(e.getInfo().getTimeIssued());
-			diary.addReport(report);
 		}); // use lambda
 
 	}

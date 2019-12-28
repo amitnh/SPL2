@@ -19,14 +19,15 @@ import java.util.List;
  */
 public class Moneypenny extends Subscriber {
 	private Squad squad;
-	private int timeTick;
+	private long timeTick;
 	private static int totalofMoneypennys=0;
 	private int id;
 	public Moneypenny() {
 		super("Moneypenny" + totalofMoneypennys);
 		// TODO Implement this
-		++totalofMoneypennys;
 		this.id=totalofMoneypennys;
+
+		++totalofMoneypennys;
 		squad = Squad.getInstance();
 	}
 
@@ -35,21 +36,33 @@ public class Moneypenny extends Subscriber {
 		// TODO Implement this
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
-			System.out.println("subscriber: " + this.getName() + " time tick:" + timeTick);
 
 		} ); // TODO: callback
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
+			Pair<List<String>, Integer> futureresult;
+			System.out.println(this.getName() + " getting agents to event");
 
-			List<Object> futureresult = new LinkedList<>();
-			futureresult.add(squad.getAgents(e.getSerials()));
-			futureresult.add(this.id);
-			this.complete(e,futureresult);
+			if(squad.getAgents(e.getSerials())) {
+				futureresult = new Pair<>(squad.getAgentsNames(e.getSerials()), this.id);
+				this.complete(e, futureresult);
+			}
+			else {
+				futureresult = new Pair<>(null,this.id);
+				this.complete(e, futureresult);
+			}
 
 		} ); // use lambdas
 		this.subscribeEvent(SendAgentsEvent.class,(SendAgentsEvent e)->{
+			System.out.println(this.getName() + "sending agents to event");
 			squad.sendAgents(e.getSerials(),e.getTime());
 			this.complete(e,true);
 		} ); // use lambdas
+		this.subscribeEvent(ReleaseAgentsEvent.class,(ReleaseAgentsEvent e)->{
+			System.out.println(this.getName() + "Releasing agents from event");
+			squad.releaseAgents(e.getSeriealstoRelease());
+			this.complete(e,true);
+		} ); // use lambdas
+
 
 	}
 

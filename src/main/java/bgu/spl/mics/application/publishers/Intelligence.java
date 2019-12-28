@@ -34,7 +34,6 @@ public class Intelligence extends Subscriber{
 		// TODO Implement this.
 		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
 			timeTick= b.getTime();
-			System.out.println("time Tick: " + timeTick);
 			Sendmissions();
 		} );
 
@@ -43,8 +42,7 @@ public class Intelligence extends Subscriber{
 	private void Sendmissions() {
 		for(MissionInfo e : missions) {
 			if (e.getTimeIssued() <= timeTick) {
-				System.out.println(e.getMissionName());
-
+				System.out.println(getName()+" Sending missions now: "+e.getMissionName()+ " time issued"+ timeTick);
 				this.getSimplePublisher().sendEvent(new MissionReceivedEvent(e));
 				missions.remove(e);
 			}

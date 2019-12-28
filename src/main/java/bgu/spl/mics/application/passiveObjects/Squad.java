@@ -31,6 +31,7 @@ public class Squad {
 	public  void  load (Agent[] agents) { // TODO: check if needed to be synchronized
 		// TODO
 		this.agents= new HashMap<>();// clears the map
+
 		for (Agent a:agents)
 		{
 			this.agents.put(a.getSerialNumber(),a);
