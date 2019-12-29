@@ -45,10 +45,9 @@ public class Squad {
 		// TODO
 		for (String s:serials)
 		{
-			Agent tmp = agents.get(s);
-			synchronized (tmp) {
-				tmp.release();
-				tmp.notifyAll();
+			synchronized (agents.get(s)) {
+				agents.get(s).release();
+				agents.get(s).notifyAll();
 			}
 		}
 	}
@@ -59,7 +58,7 @@ public class Squad {
 	 */
 	public void sendAgents(List<String> serials, int time){
 		// TODO Implement this
-		try{Thread.sleep(time);}catch (Exception e){}; //Send the agent to a trip to Paris
+		try{Thread.sleep(time);}catch (Exception ignored){}//Send the agent to a trip to Paris
 		System.out.println("realising agents");
 		releaseAgents(serials);
 	}
@@ -71,22 +70,27 @@ public class Squad {
 	 */
 	public boolean getAgents(List<String> serials){
 		// TODO Implement this
+		List<String> serialAcquired= new LinkedList<>();
 		for (String s:serials)
 		{
-			Agent tmp = agents.get(s);
-			synchronized (tmp) { //TODO: we need to put the agents in Alphabetical order
-				if (tmp == null) {
-					for (String i:serials){agents.get(i).release();} // release all agents and then return false
-					return false;
+			Agent tmp=null;
+			try {tmp = agents.get(s);} catch(Exception ignored){}
+			if (tmp == null) {
+				for (String i:serialAcquired) {
+						agents.get(i).release(); // release is synchronized
 				}
+				return false;
+			}
+			synchronized (agents.get(s)) { //TODO: we need to put the agents in Alphabetical order
+				serialAcquired.add(s);
 				while (!tmp.isAvailable()) {
-					try { tmp.wait();} catch (Exception e) {}
+					try { tmp.wait();} catch (Exception ignored) {}
 				}
-				tmp.acquire();
-
+				tmp.acquire(); // synchronized in Agent
 			}
 		}
 		return true;
+
 	}
 
     /**

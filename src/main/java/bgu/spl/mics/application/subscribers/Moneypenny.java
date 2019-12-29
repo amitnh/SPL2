@@ -54,8 +54,9 @@ public class Moneypenny extends Subscriber {
 					this.complete(e, futureresult);
 
 			}
-			else {
+			else {	//Agent not found
 				futureresult = new Pair<>(null,this.id);
+				System.out.println(this.getName()+ " Didnt find agents");
 				this.complete(e, futureresult);
 			}
 		} ); // use lambdas

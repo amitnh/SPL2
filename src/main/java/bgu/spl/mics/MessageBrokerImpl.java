@@ -15,8 +15,8 @@ public class MessageBrokerImpl implements MessageBroker {
 	private static MessageBrokerImpl instance =new MessageBrokerImpl(); //makes the class singelton
 	private ConcurrentHashMap<Class<? extends Event>,LinkedList<Subscriber>> subscribeEventMap = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<Class<? extends Broadcast>,LinkedList<Subscriber>> subscribeBroadcastMap = new ConcurrentHashMap<>();
-	private ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>> subscribersQueueMap = new ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>>();
-	private ConcurrentHashMap<Event,Future> futureHashMap = new ConcurrentHashMap<Event,Future>();
+	private ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>> subscribersQueueMap = new ConcurrentHashMap<>();
+	private ConcurrentHashMap<Event,Future> futureHashMap = new ConcurrentHashMap<>();
 
 
 	//private List<Pair<Class,List<Subscriber>>> subscribeEventList;
@@ -73,14 +73,14 @@ catch (Exception ignore){
 		try { 				//check if not empty, or event is null
 			synchronized (e.getClass()) { // to check
 				m = subscribeEventMap.get(e.getClass()).getFirst(); // brings the first subscriber in the event list
-				subscribeEventMap.get(e.getClass()).add(subscribeEventMap.get(e.getClass()).remove(0)); // moves the subscriber to the end of the list ?
 			}
 		}
 			catch(Exception exp){return null;}
 
 			Future<T> future = new Future<>();
 			futureHashMap.putIfAbsent(e,future);
-			synchronized (m) {
+			synchronized (subscribeEventMap.get(e.getClass()).getFirst()) { // m
+				subscribeEventMap.get(e.getClass()).add(subscribeEventMap.get(e.getClass()).remove(0)); // moves the subscriber to the end of the list ?
 				subscribersQueueMap.get(m).add(e); //adds the Event to the subscriber Queue
 				m.notifyAll(); // if m was in wait() from awaitMessage (empty Queue)
 			}

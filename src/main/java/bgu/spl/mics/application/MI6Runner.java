@@ -33,6 +33,7 @@ import sun.awt.image.ImageWatched;
 
 public class MI6Runner {
     public static void main(String[] args) throws IOException {
+
         // TODO Implement this
         MessageBroker MB = MessageBrokerImpl.getInstance();
         int numofMoneypennys=0;
@@ -97,7 +98,7 @@ public class MI6Runner {
                     mission.setDuration(inputmissions.get(j).getAsJsonObject().get("duration").getAsInt());
                     mission.setTimeExpired(inputmissions.get(j).getAsJsonObject().get("timeExpired").getAsInt());
                     mission.setTimeIssued(inputmissions.get(j).getAsJsonObject().get("timeIssued").getAsInt());
-                    mission.setMissionName(inputmissions.get(j).getAsJsonObject().get("missionName").getAsString());
+                    mission.setMissionName(inputmissions.get(j).getAsJsonObject().get("name").getAsString());
                     mission.setGadget(inputmissions.get(j).getAsJsonObject().get("gadget").getAsString());
                     List<String> serialAgentsNumbers = new LinkedList<>();
                     JsonArray agentsneeded = inputmissions.get(j).getAsJsonObject().get("serialAgentsNumbers").getAsJsonArray();
@@ -118,6 +119,7 @@ public class MI6Runner {
             e.printStackTrace();
 
         }
+
 
         List<Subscriber> subscriberList= new LinkedList<>();
         for(int i=0; i<numofMs; i++)
@@ -143,7 +145,7 @@ public class MI6Runner {
         Diary.getInstance().printToFile("diaryOutputFile.json");
         Inventory.getInstance().printToFile("inventoryOutputFile.json");
 
-        System.out.println("Finished :)");
+        System.out.println(Thread.activeCount() +" Threads active");
     }
 
 }
