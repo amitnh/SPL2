@@ -1,6 +1,5 @@
 package bgu.spl.mics.application.publishers;
 
-import bgu.spl.mics.Publisher;
 import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.MissionReceivedEvent;
 import bgu.spl.mics.application.TerminateBroadcast;
@@ -20,14 +19,12 @@ public class Intelligence extends Subscriber{
 
 	private LinkedList<MissionInfo> missions;
 	private long timeTick;
-	private int id;
 	private static int totalMs=0;
 	public Intelligence(LinkedList<MissionInfo> missions) {
 		super("intelligence" +totalMs);
 		// TODO Implement this
 		this.missions= missions;
 		++totalMs;
-		this.id = totalMs;
 	}
 
 	@Override
@@ -38,9 +35,7 @@ public class Intelligence extends Subscriber{
 			Sendmissions();
 		} );
 
-		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
-			terminate();
-		});// TODO Implement this
+		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> terminate());// TODO Implement this
 
 
 	}

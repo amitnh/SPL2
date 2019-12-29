@@ -35,7 +35,7 @@ public class Future<T> {
 	public T get() {
 		//TODO:
 		while (!isDone())
-			try{this.wait();}catch(Exception e){};
+			try{this.wait();}catch(Exception ignored){};
 		return Futresult;
 	}
 	

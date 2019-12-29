@@ -1,30 +1,23 @@
 package bgu.spl.mics.application;
 
-import bgu.spl.mics.application.subscribers.*;
-import bgu.spl.mics.application.publishers.*;
+import bgu.spl.mics.MessageBroker;
+import bgu.spl.mics.MessageBrokerImpl;
+import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.passiveObjects.*;
-import bgu.spl.mics.*;
-import bgu.spl.mics.application.*;
-import bgu.spl.mics.application.passiveObjects.Inventory;
-import bgu.spl.mics.Event;
+import bgu.spl.mics.application.publishers.Intelligence;
+import bgu.spl.mics.application.publishers.TimeService;
+import bgu.spl.mics.application.subscribers.M;
+import bgu.spl.mics.application.subscribers.Moneypenny;
+import bgu.spl.mics.application.subscribers.Q;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeMap;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import sun.awt.image.ImageWatched;
 
 /** This is the Main class of the application. You should parse the input file, 
  * create the different instances of the objects, and run the system.
@@ -35,7 +28,6 @@ public class MI6Runner {
     public static void main(String[] args) throws IOException {
 
         // TODO Implement this
-        MessageBroker MB = MessageBrokerImpl.getInstance();
         int numofMoneypennys=0;
         int numofMs=0;
         long time=0;
@@ -115,13 +107,9 @@ public class MI6Runner {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-
         }
 
 
-        List<Subscriber> subscriberList= new LinkedList<>();
         for(int i=0; i<numofMs; i++)
         {
             new Thread(new M()).start();
@@ -139,7 +127,7 @@ public class MI6Runner {
         Thread timeSer = new Thread(new TimeService(time));
         timeSer.start();
 
-        try{timeSer.join();} catch (Exception exp){} // Main waits for TimeService to Die slowly
+        try{timeSer.join();} catch (Exception ignored){} // Main waits for TimeService to Die slowly
 
 
         Diary.getInstance().printToFile("diaryOutputFile.json");

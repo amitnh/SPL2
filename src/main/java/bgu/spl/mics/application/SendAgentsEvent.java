@@ -1,9 +1,8 @@
 package bgu.spl.mics.application;
-import java.util.*;
+
 import bgu.spl.mics.Event;
-import bgu.spl.mics.application.passiveObjects.Agent;
-import bgu.spl.mics.application.passiveObjects.Squad;
-import javafx.util.Pair;
+
+import java.util.List;
 
 public class SendAgentsEvent implements Event<Boolean> { //first   List<string>, second int
     private List<String> serials;

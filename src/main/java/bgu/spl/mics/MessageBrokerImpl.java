@@ -98,12 +98,12 @@ catch (Exception ignore){
 	public void unregister(Subscriber m) {
 		for (Map.Entry<Class<? extends Event>,LinkedList<Subscriber>>  i:subscribeEventMap.entrySet()) {
 			synchronized (i.getKey()) {
-				try {i.getValue().remove(m);} catch (Exception exp){};
+				try {i.getValue().remove(m);} catch (Exception exp){}
 			}
 		}
 		for (Map.Entry<Class<? extends Broadcast>,LinkedList<Subscriber>>  i:subscribeBroadcastMap.entrySet()) {
 			synchronized (i.getKey()) {
-				try {i.getValue().remove(m);} catch (Exception exp){};
+				try {i.getValue().remove(m);} catch (Exception exp){}
 			}
 		}
 		synchronized (m)
@@ -117,8 +117,7 @@ catch (Exception ignore){
 	public Message awaitMessage(Subscriber m) throws InterruptedException {
 		synchronized (m) {
 			while (subscribersQueueMap.get(m).isEmpty()) {
-				try{  m.wait(); }
-				catch (InterruptedException ignored){}//m.interuppt;} ??????????????
+				m.wait(); // if there in exception is automatically thrown
 			}
 			return subscribersQueueMap.get(m).remove();
 		}

@@ -1,13 +1,10 @@
 package bgu.spl.mics.application.subscribers;
 
-import bgu.spl.mics.MessageBroker;
-import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.*;
 import bgu.spl.mics.application.passiveObjects.Squad;
 import javafx.util.Pair;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,7 +17,6 @@ import java.util.List;
 public class Moneypenny extends Subscriber {
 	private Boolean calledTerminate=false;
 	private Squad squad;
-	private long timeTick;
 	private static int totalofMoneypennys=0;
 	private int id;
 	public Moneypenny() {
@@ -34,15 +30,8 @@ public class Moneypenny extends Subscriber {
 
 	@Override
 	protected void initialize() {
-		// TODO Implement this
-		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
-			timeTick= b.getTime();
-		} );
 
-		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
-			terminate();
-
-		});// TODO Implement this
+		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> terminate());// TODO Implement this
 
 
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{

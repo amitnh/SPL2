@@ -83,10 +83,7 @@ public class Report {
 	public void setAgentsSerialNumbersNumber(List<String> agentsSerialNumbersNumber) {
 		// TODO Implement this
 		this.agentsSerialNumbersNumber.clear();
-		for (String i:agentsSerialNumbersNumber)
-		{
-			this.agentsSerialNumbersNumber.add(i);
-		}
+		this.agentsSerialNumbersNumber.addAll(agentsSerialNumbersNumber);
 	}
 	/**
 	 * Retrieves the agents names.
@@ -104,10 +101,7 @@ public class Report {
 	public void setAgentsNames(List<String> agentsNames) {
 		// TODO Implement this
 		this.agentsNames.clear();
-		for (String i:agentsNames)
-		{
-			this.agentsNames.add(i);
-		}
+		this.agentsNames.addAll(agentsNames);
 	}
 
 	/**

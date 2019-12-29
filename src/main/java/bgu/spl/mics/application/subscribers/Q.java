@@ -1,12 +1,10 @@
 package bgu.spl.mics.application.subscribers;
 
-import bgu.spl.mics.*;
+import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.GadgetAvailableEvent;
-import bgu.spl.mics.application.MissionReceivedEvent;
 import bgu.spl.mics.application.TerminateBroadcast;
 import bgu.spl.mics.application.TickBroadcast;
 import bgu.spl.mics.application.passiveObjects.Inventory;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
 
 /**
@@ -36,7 +34,7 @@ public class Q extends Subscriber {
 		});// TODO Implement this
 
 		this.subscribeEvent(GadgetAvailableEvent.class, (GadgetAvailableEvent e) -> {
-			Pair<Boolean,Boolean> result = new Pair(inv.getItem(e.getGadget()), overtime);
+			Pair result = new Pair(inv.getItem(e.getGadget()), overtime);
 			this.complete(e, result); // use lambdas
 
 		});

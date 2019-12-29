@@ -3,11 +3,10 @@ package bgu.spl.mics.application.passiveObjects;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import javafx.util.Pair;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,10 +39,7 @@ public class Inventory {
      */
 	public void load (String[] inventory) {
 		//TODO: Implement this
-		for (String i:inventory)
-		{
-			gadgets.add(i);
-		}
+		gadgets.addAll(Arrays.asList(inventory));
 	}
 	
 	/**

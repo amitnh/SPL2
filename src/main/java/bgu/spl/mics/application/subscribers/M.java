@@ -1,17 +1,12 @@
 package bgu.spl.mics.application.subscribers;
 
 import bgu.spl.mics.Future;
-import bgu.spl.mics.MessageBroker;
-import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.*;
 import bgu.spl.mics.application.passiveObjects.Diary;
 import bgu.spl.mics.application.passiveObjects.Report;
-import bgu.spl.mics.application.passiveObjects.Squad;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,14 +30,9 @@ public class M extends Subscriber {
 	@Override
 	protected void initialize() {
 		diary = Diary.getInstance();
-		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> {
-			timeTick= b.getTime();
+		this.subscribeBroadcast(TickBroadcast.class,(TickBroadcast b)-> timeTick= b.getTime());
 
-		} );
-
-		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
-			terminate();
-		});// TODO Implement this
+		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> terminate());// TODO Implement this
 
 
 		this.subscribeEvent(MissionReceivedEvent.class,(MissionReceivedEvent e)->
@@ -75,9 +65,9 @@ public class M extends Subscriber {
 
 			if(isCompleted) {
 
-				report.setMoneypenny((int) agentevent.get().getValue());
+				report.setMoneypenny(agentevent.get().getValue());
 
-				report.setAgentsNames((List<String>) (agentevent.get().getKey()));
+				report.setAgentsNames(agentevent.get().getKey());
 				report.setAgentsSerialNumbersNumber(e.getInfo().getSerialAgentsNumbers());
 				report.setGadgetName(e.getInfo().getGadget());
 				report.setM(id);

@@ -1,7 +1,5 @@
 package bgu.spl.mics;
 
-import bgu.spl.mics.application.TerminateBroadcast;
-
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -22,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class Subscriber extends RunnableSubPub {
     private boolean terminated = false;
     private MessageBroker msg = MessageBrokerImpl.getInstance();
-    private ConcurrentHashMap<Class,Callback> callbackHashMap = new ConcurrentHashMap<Class,Callback>();
+    private ConcurrentHashMap<Class,Callback> callbackHashMap = new ConcurrentHashMap<>();
 
     /**
      * @param name the Subscriber name (used mainly for debugging purposes -
@@ -120,7 +118,7 @@ public abstract class Subscriber extends RunnableSubPub {
             //System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)
             try {Message curMsg = msg.awaitMessage(this);
                 callbackHashMap.get(curMsg.getClass()).call(curMsg);
-            } catch (Exception e){}
+            } catch (Exception ignored){}
             }
         System.out.println(this.getName()+" has fallen in battle");
     }

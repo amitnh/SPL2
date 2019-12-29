@@ -6,7 +6,7 @@ public class TickBroadcast implements Broadcast {
 
 
     public TickBroadcast(long now){
-        this.now = now;
+        TickBroadcast.now = now;
     }
     private static long now = 0;
 

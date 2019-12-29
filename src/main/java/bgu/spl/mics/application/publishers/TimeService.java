@@ -7,7 +7,7 @@ import bgu.spl.mics.application.TickBroadcast;
 /**
  * TimeService is the global system timer There is only one instance of this Publisher.
  * It keeps track of the amount of ticks passed since initialization and notifies
- * all other subscribers about the current time tick using {@link Tick Broadcast}.
+ * all other subscribers about the current time tick using
  * This class may not hold references for objects which it is not responsible for.
  * 
  * You can add private fields and public methods to this class.
