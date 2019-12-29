@@ -1,4 +1,6 @@
 package bgu.spl.mics.application.passiveObjects;
+import com.sun.deploy.security.SelectableSecurityManager;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +16,7 @@ public class Squad {
 
 	private Map<String, Agent> agents;
 	private static Squad instance = new Squad();
-	/**
+		/**
 	 * Retrieves the single instance of this class.
 	 */
 	public static Squad getInstance() {
@@ -43,11 +45,31 @@ public class Squad {
 	 */
 	public void releaseAgents(List<String> serials){
 		// TODO
-		for (String s:serials)
+		if (!serials.isEmpty()) {
+			for (String s : serials) {
+				try {
+					System.out.println("releaseAgents wants to synchronized on: " + agents.get(s).getName());
+					synchronized (agents.get(s)) {
+						System.out.println("releaseAgents synchronized on: " + agents.get(s).getName());
+						agents.get(s).release();
+						agents.get(s).notifyAll();
+					}
+				} catch (Exception exp) {
+				}
+			}
+		}
+		else // notify and realse all agents
 		{
-			synchronized (agents.get(s)) {
-				agents.get(s).release();
-				agents.get(s).notifyAll();
+			for (Agent a:agents.values())
+			{
+				try {
+					System.out.println("NOTIFYYYY ALL AGENTS !!!!!" + agents.get(a).getName());
+					synchronized (agents.get(a)) {
+						agents.get(a).release();
+						agents.get(a).notifyAll();
+					}
+				} catch (Exception exp) {
+				}
 			}
 		}
 	}
@@ -59,8 +81,11 @@ public class Squad {
 	public void sendAgents(List<String> serials, int time){
 		// TODO Implement this
 		try{Thread.sleep(time);}catch (Exception ignored){}//Send the agent to a trip to Paris
-		System.out.println("realising agents");
+		System.out.println("Misson complete, releasing angets !!!!!!!!");
 		releaseAgents(serials);
+		System.out.println("Agents released @@@@@@@@@@@@");
+
+
 	}
 
 	/**
@@ -81,12 +106,15 @@ public class Squad {
 				}
 				return false;
 			}
-			synchronized (agents.get(s)) { //TODO: we need to put the agents in Alphabetical order
+			synchronized (agents.get(s)) {
+				System.out.println("getAgents synchronized on: " + agents.get(s).getName());
 				serialAcquired.add(s);
-				while (!tmp.isAvailable()) {
-					try { tmp.wait();} catch (Exception ignored) {}
+				while (!agents.get(s).isAvailable()) {
+					try { agents.get(s).wait();} catch (Exception ignored) {}
 				}
-				tmp.acquire(); // synchronized in Agent
+				agents.get(s).acquire(); // synchronized in Agent
+				System.out.println("Agent: " + agents.get(s).getName() + "acquired");
+
 			}
 		}
 		return true;

@@ -16,6 +16,7 @@ import javafx.util.Pair;
 public class Q extends Subscriber {
 	private Inventory inv;
 	private Boolean overtime = false;
+	private Long timetick;
 	public Q() {
 		super("Q");
 		// TODO Implement this
@@ -26,6 +27,7 @@ public class Q extends Subscriber {
 	@Override
 	protected void initialize() {
 		this.subscribeBroadcast(TickBroadcast.class, (TickBroadcast b) -> {
+			timetick=b.getTime();
 		});// TODO Implement this
 
 		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
@@ -34,7 +36,8 @@ public class Q extends Subscriber {
 		});// TODO Implement this
 
 		this.subscribeEvent(GadgetAvailableEvent.class, (GadgetAvailableEvent e) -> {
-			Pair result = new Pair(inv.getItem(e.getGadget()), overtime);
+			Pair bools = new Pair(inv.getItem(e.getGadget()), overtime);
+			Pair result = new Pair(timetick,bools);
 			this.complete(e, result); // use lambdas
 
 		});

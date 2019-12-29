@@ -2,9 +2,11 @@ package bgu.spl.mics.application.subscribers;
 
 import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.*;
+import bgu.spl.mics.application.passiveObjects.Agent;
 import bgu.spl.mics.application.passiveObjects.Squad;
 import javafx.util.Pair;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -31,37 +33,52 @@ public class Moneypenny extends Subscriber {
 	@Override
 	protected void initialize() {
 
-		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> terminate());// TODO Implement this
+		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
+			System.out.println(getName() + " doing " + "TerminateBroadcast");
+			squad.releaseAgents(new LinkedList<>());
+			terminate();
+			System.out.println(getName() + " finished " + "TerminateBroadcast");
+
+
+		});// TODO Implement this
 
 
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
+			System.out.println(getName() + " doing " + "AgentsAvailableEvent");
 			Pair<List<String>, Integer> futureresult;
-			System.out.println(this.getName() + " getting agents to event");
 
 			if(squad.getAgents(e.getSerials())) {
 					futureresult = new Pair<>(squad.getAgentsNames(e.getSerials()), this.id);
 					this.complete(e, futureresult);
-
+				System.out.println(getName() + " finished " + "AgentsAvailableEvent");
 			}
 			else {	//Agent not found
 				futureresult = new Pair<>(null,this.id);
-				System.out.println(this.getName()+ " Didnt find agents");
 				this.complete(e, futureresult);
+				System.out.println(getName() + " finished " + "AgentsAvailableEvent");
+
 			}
+
 		} ); // use lambdas
 
 
 		this.subscribeEvent(SendAgentsEvent.class,(SendAgentsEvent e)->{
-			System.out.println(this.getName() + "sending agents to event");
+			System.out.println(getName() + " doing " + "SendAgentsEvent");
+
 			squad.sendAgents(e.getSerials(),e.getTime());
 			this.complete(e,true);
+			System.out.println(getName() + " finished " + "SendAgentsEvent");
+
 		} ); // use lambdas
 
 
 		this.subscribeEvent(ReleaseAgentsEvent.class,(ReleaseAgentsEvent e)->{
-			System.out.println(this.getName() + "Releasing agents from event");
+
+			System.out.println(getName() + " doing " + "ReleaseAgentsEvent");
 			squad.releaseAgents(e.getSeriealstoRelease());
 			this.complete(e,true);
+			System.out.println(getName() + " finished " + "ReleaseAgentsEvent");
+
 		} ); // use lambdas
 
 

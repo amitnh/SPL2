@@ -10,12 +10,17 @@ public class Agent {
 	private String serialNumber=null;
 	private String name=null;
 	private boolean isAvailable= true;
+	private Object serialLock = new Object();
+	private Object nameLock = new Object();
+	private Object isAvailableLock = new Object();
 	/**
 	 * Sets the serial number of an agent.
 	 */
-	public synchronized void setSerialNumber(String serialNumber) {
+	public void setSerialNumber(String serialNumber) {
 		// TODO Implement this
-		this.serialNumber=serialNumber;
+		synchronized (serialLock) {
+			this.serialNumber = serialNumber;
+		}
 	}
 
 	/**
@@ -23,17 +28,21 @@ public class Agent {
      * <p>
      * @return The serial number of an agent.
      */
-	public synchronized String getSerialNumber() {
+	public String getSerialNumber() {
 		// TODO Implement this
-		return serialNumber;
+		synchronized (serialLock) {
+			return serialNumber;
+		}
 	}
 
 	/**
 	 * Sets the name of the agent.
 	 */
-	public synchronized void setName(String name) {
+	public  void setName(String name) {
 		// TODO Implement this
-		this.name=name;
+		synchronized (nameLock) {
+			this.name = name;
+		}
 	}
 
 	/**
@@ -41,9 +50,11 @@ public class Agent {
      * <p>
      * @return the name of the agent.
      */
-	public synchronized String getName() {
+	public String getName() {
 		// TODO Implement this
-		return name;
+		synchronized (nameLock){
+			return name;
+		}
 	}
 
 	/**
@@ -51,25 +62,31 @@ public class Agent {
      * <p>
      * @return if the agent is available.
      */
-	public synchronized boolean isAvailable() {
+	public  boolean isAvailable() {
 		// TODO Implement this
-		return isAvailable;
+		synchronized (isAvailableLock) {
+			return isAvailable;
+		}
 	}
 
 	/**
 	 * Acquires an agent.
 	 */
-	public synchronized void acquire(){
+	public void acquire(){
 		// TODO Implement this
-		isAvailable=false;
+		synchronized (isAvailableLock) {
+			isAvailable = false;
+		}
 	}
 
 	/**
 	 * Releases an agent.
 	 */
-	public synchronized void release(){
+	public void release(){
 		// TODO Implement this
-		isAvailable=true;
-		this.notifyAll();
+		synchronized (isAvailableLock) {
+			isAvailable = true;
+			this.notifyAll();
+		}
 	}
 }

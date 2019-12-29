@@ -19,10 +19,12 @@ public class Intelligence extends Subscriber{
 
 	private LinkedList<MissionInfo> missions;
 	private long timeTick;
+	private long timeExpired;
 	private static int totalMs=0;
-	public Intelligence(LinkedList<MissionInfo> missions) {
+	public Intelligence(LinkedList<MissionInfo> missions, long timeExpired) {
 		super("intelligence" +totalMs);
 		// TODO Implement this
+		this.timeExpired = timeExpired;
 		this.missions= missions;
 		++totalMs;
 	}
@@ -42,8 +44,7 @@ public class Intelligence extends Subscriber{
 
 	private void Sendmissions() {
 		for(MissionInfo e : missions) {
-			if (e.getTimeIssued() <= timeTick) {
-				System.out.println(getName()+" Sending missions now: "+e.getMissionName()+ " time issued"+ timeTick);
+			if ((e.getTimeIssued() <= timeTick)&(e.getDuration()+timeTick<=timeExpired)) {
 				this.getSimplePublisher().sendEvent(new MissionReceivedEvent(e));
 				missions.remove(e);
 			}

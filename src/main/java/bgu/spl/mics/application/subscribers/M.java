@@ -1,10 +1,13 @@
 package bgu.spl.mics.application.subscribers;
 
 import bgu.spl.mics.Future;
+import bgu.spl.mics.MessageBroker;
+import bgu.spl.mics.MessageBrokerImpl;
 import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.*;
 import bgu.spl.mics.application.passiveObjects.Diary;
 import bgu.spl.mics.application.passiveObjects.Report;
+import bgu.spl.mics.application.passiveObjects.Squad;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -37,7 +40,7 @@ public class M extends Subscriber {
 
 		this.subscribeEvent(MissionReceivedEvent.class,(MissionReceivedEvent e)->
 		{
-			System.out.println(getName() + " got new mission: "+ e.getInfo().getMissionName() +" time now: "+ timeTick);
+			Diary.getInstance().increment();
 			Report report = new Report();
 			report.setTimeCreated((int)timeTick);
 			boolean isCompleted = false;
@@ -45,23 +48,22 @@ public class M extends Subscriber {
 
 			Future<Pair<List<String>, Integer>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
 			if(agentevent.get().getKey()!=null) { //if moneypenny got agents ready
-				Future<Pair<Boolean,Boolean>> gadgetevent = getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget()));
-				if (gadgetevent.get().getValue()) { //terminated{
-					getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers())); //Release Agents if overtime and notify
+				Future<Pair<Long,Pair<Boolean,Boolean>>> gadgetevent = getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget()));
+				timeTick = gadgetevent.get().getKey();
+				if (gadgetevent.get().getValue().getValue()) { //terminated{
+					getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers())).get(); //Release Agents if overtime and notify
 					terminate();
 					isTerminated=true;
 				}
-				else if (gadgetevent.get().getKey()) {
-					report.setQTime((int) timeTick);
+				else if (gadgetevent.get().getValue().getKey()) {// checks if gadget is available
+					report.setQTime( gadgetevent.get().getKey().intValue());
 					if (e.getInfo().getTimeExpired() >= timeTick) {
 						isCompleted = true;
-						getSimplePublisher().sendEvent(new SendAgentsEvent(e.getInfo().getSerialAgentsNumbers(), e.getInfo().getDuration())); // send agents, if misson not completed reales agents
+						getSimplePublisher().sendEvent(new SendAgentsEvent(e.getInfo().getSerialAgentsNumbers(), e.getInfo().getDuration())).get(); // send agents, if misson not completed reales agents
 					}
 				}
 
 			}
-			else
-				System.out.println("AGENTS NOT FOUND&*^(@*&^$@(*&^@$*(_&_$@(*$_@*&_@*$");
 
 			if(isCompleted) {
 
@@ -77,11 +79,11 @@ public class M extends Subscriber {
 				diary.addReport(report);
 			}
 			else if(!isTerminated)
-				getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers()));
+				getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers())).get();
 
 			complete(e,isCompleted);
 
-		}); // use lambda
+		});
 
 	}
 

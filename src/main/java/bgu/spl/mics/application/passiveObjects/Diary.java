@@ -23,11 +23,14 @@ public class Diary {
 	 */
 	private static Diary instance = new Diary();
 	private  List<Report> reports = new LinkedList<>();
+	private int total=0;
 
 	public static Diary getInstance() {
 		return instance;
 	}
-
+	public void increment(){
+		total++;
+	}
 	public List<Report> getReports() {
 		return null;
 	}
@@ -78,7 +81,7 @@ public class Diary {
 
 		}
 		toprint.add("reports", reports);
-		toprint.addProperty("total", reports.size());
+		toprint.addProperty("total", total);
 
 		FileWriter file = new FileWriter(filename);
 		file.write(new GsonBuilder().setPrettyPrinting().create().toJson(toprint));

@@ -32,7 +32,7 @@ public class Future<T> {
      * @return return the result of type T if it is available, if not wait until it is available.
      * 	       
      */
-	public T get() {
+	public synchronized T get() {
 		//TODO:
 		while (!isDone())
 			try{this.wait();}catch(Exception ignored){};
@@ -42,7 +42,7 @@ public class Future<T> {
 	/**
      * Resolves the result of this Future object.
      */
-	public void resolve (T result) {
+	public synchronized void resolve (T result) {
 		//TODO:
 		this.Futresult = result;
 		isdone=true;
@@ -52,7 +52,7 @@ public class Future<T> {
 	/**
      * @return true if this object has been resolved, false otherwise
      */
-	public boolean isDone() {
+	public synchronized boolean isDone() {
 		//TODO:
 		return isdone;
 	}

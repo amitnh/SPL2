@@ -18,9 +18,6 @@ public class MessageBrokerImpl implements MessageBroker {
 	private ConcurrentHashMap<Subscriber,LinkedBlockingQueue<Message>> subscribersQueueMap = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<Event,Future> futureHashMap = new ConcurrentHashMap<>();
 
-
-	//private List<Pair<Class,List<Subscriber>>> subscribeEventList;
-	//private List<LinkedBlockingQueue<Integer> subscribersQueue = new List<LinkedBlockingQueue<Integer>>;
 	public static MessageBroker getInstance() {
 		return instance;
 	}
@@ -42,7 +39,7 @@ public class MessageBrokerImpl implements MessageBroker {
 	}
 
 	@Override
-	public <T> void complete(Event<T> e, T result) { // needs synchronized ?!!?!?!?!??!?!?!!?!?!?!?
+	public  <T> void complete(Event<T> e, T result) { // needs synchronized ?!!?!?!?!??!?!?!!?!?!?!?
 		futureHashMap.get(e).resolve(result);
 	}
 
@@ -72,6 +69,8 @@ catch (Exception ignore){
 		Subscriber m;
 		try { 				//check if not empty, or event is null
 			synchronized (e.getClass()) { // to check
+				System.out.println("sendEvent synchronized on: " + e.getClass());
+
 				m = subscribeEventMap.get(e.getClass()).getFirst(); // brings the first subscriber in the event list
 			}
 		}

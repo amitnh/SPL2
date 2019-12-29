@@ -49,7 +49,6 @@ public class MI6Runner {
             inventory.load(inputgadgets);
 
 
-
             /////get squad
 
             JsonArray inputsquad = inputjson.get("squad").getAsJsonArray();
@@ -100,10 +99,11 @@ public class MI6Runner {
                     mission.setSerialAgentsNumbers(serialAgentsNumbers);
 
                     missions.add(mission);
+
                 }
 
 
-                Intelligences.add(new Intelligence(missions));
+                Intelligences.add(new Intelligence(missions,time));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -128,7 +128,6 @@ public class MI6Runner {
         timeSer.start();
 
         try{timeSer.join();} catch (Exception ignored){} // Main waits for TimeService to Die slowly
-
 
         Diary.getInstance().printToFile("diaryOutputFile.json");
         Inventory.getInstance().printToFile("inventoryOutputFile.json");
