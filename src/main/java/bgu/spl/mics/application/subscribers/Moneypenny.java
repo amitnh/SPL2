@@ -35,7 +35,7 @@ public class Moneypenny extends Subscriber {
 
 		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
 			System.out.println(getName() + " doing " + "TerminateBroadcast");
-			squad.releaseAgents(new LinkedList<>());
+			squad.releaseAgents(null);
 			terminate();
 			System.out.println(getName() + " finished " + "TerminateBroadcast");
 

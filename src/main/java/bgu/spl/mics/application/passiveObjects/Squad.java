@@ -45,7 +45,7 @@ public class Squad {
 	 */
 	public void releaseAgents(List<String> serials){
 		// TODO
-		if (!serials.isEmpty()) {
+		if (serials!=null) {
 			for (String s : serials) {
 				try {
 					System.out.println("releaseAgents wants to synchronized on: " + agents.get(s).getName());
@@ -60,10 +60,10 @@ public class Squad {
 		}
 		else // notify and realse all agents
 		{
+			System.out.println("NOTIFYYYY ALL AGENTS !!!!!" );
 			for (Agent a:agents.values())
 			{
 				try {
-					System.out.println("NOTIFYYYY ALL AGENTS !!!!!" + agents.get(a).getName());
 					synchronized (agents.get(a)) {
 						agents.get(a).release();
 						agents.get(a).notifyAll();
