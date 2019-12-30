@@ -96,6 +96,7 @@ public class MI6Runner {
                     for(int k = 0 ; k < agentsneeded.size(); k++) {
                         serialAgentsNumbers.add(agentsneeded.get(k).getAsString());
                     }
+
                     mission.setSerialAgentsNumbers(serialAgentsNumbers);
 
                     missions.add(mission);
@@ -129,8 +130,8 @@ public class MI6Runner {
 
         try{timeSer.join();} catch (Exception ignored){} // Main waits for TimeService to Die slowly
 
-        Diary.getInstance().printToFile("diaryOutputFile.json");
-        Inventory.getInstance().printToFile("inventoryOutputFile.json");
+        Diary.getInstance().printToFile(args[2]);
+        Inventory.getInstance().printToFile(args[1]);
 
         System.out.println(Thread.activeCount() +" Threads active");
     }

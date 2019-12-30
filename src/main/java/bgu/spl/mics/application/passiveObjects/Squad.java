@@ -33,7 +33,6 @@ public class Squad {
 	public  void  load (Agent[] agents) { // TODO: check if needed to be synchronized
 		// TODO
 		this.agents= new HashMap<>();// clears the map
-
 		for (Agent a:agents)
 		{
 			this.agents.put(a.getSerialNumber(),a);
@@ -60,15 +59,15 @@ public class Squad {
 		}
 		else // notify and realse all agents
 		{
-			System.out.println("NOTIFYYYY ALL AGENTS !!!!!" );
-			for (Agent a:agents.values())
-			{
-				try {
-					synchronized (agents.get(a)) {
-						agents.get(a).release();
-						agents.get(a).notifyAll();
-					}
-				} catch (Exception exp) {
+			for(int i=0;i<20;i++) {
+				System.out.println("NOTIFYYYY ALL AGENTS !!!!!");
+				for (Agent a : agents.values()) {
+					try {
+						synchronized (agents.get(a)) {
+							agents.get(a).release();
+							agents.get(a).notifyAll();
+						}
+					} catch (Exception exp) {}
 				}
 			}
 		}
@@ -98,23 +97,23 @@ public class Squad {
 		List<String> serialAcquired= new LinkedList<>();
 		for (String s:serials)
 		{
-			Agent tmp=null;
-			try {tmp = agents.get(s);} catch(Exception ignored){}
-			if (tmp == null) {
-				for (String i:serialAcquired) {
-						agents.get(i).release(); // release is synchronized
+			if(agents.containsKey(s)) {
+				synchronized (agents.get(s)) {
+					while (!agents.get(s).isAvailable()) // until available
+					{
+						try {
+							agents.get(s).wait();
+						} catch (Exception ignored) {
+						}
+					}
+					serialAcquired.add(s); // add to list
+					agents.get(s).acquire();
 				}
-				return false;
 			}
-			synchronized (agents.get(s)) {
-				System.out.println("getAgents synchronized on: " + agents.get(s).getName());
-				serialAcquired.add(s);
-				while (!agents.get(s).isAvailable()) {
-					try { agents.get(s).wait();} catch (Exception ignored) {}
-				}
-				agents.get(s).acquire(); // synchronized in Agent
-				System.out.println("Agent: " + agents.get(s).getName() + "acquired");
-
+			else
+			{
+				releaseAgents(serialAcquired);
+				return false;
 			}
 		}
 		return true;

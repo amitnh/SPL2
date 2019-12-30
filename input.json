@@ -20,8 +20,15 @@
                         "name": "Thunderball",
                         "timeExpired": 15,
                         "timeIssued": 3
+                    },
+                    {
+                        "serialAgentsNumbers": ["008"],
+                        "duration": 2,
+                        "gadget": "Dagger shoe",
+                        "name": "GoldFinger",
+                        "timeExpired": 18,
+                        "timeIssued": 10
                     }
-
                 ]
             },
             {
