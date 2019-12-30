@@ -115,12 +115,10 @@ public abstract class Subscriber extends RunnableSubPub {
         msg.register(this);
         initialize();
         while (!terminated) {
-            //System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)
             try {Message curMsg = msg.awaitMessage(this);
                 callbackHashMap.get(curMsg.getClass()).call(curMsg);
             } catch (Exception ignored){}
             }
-        System.out.println(this.getName()+" has fallen in battle");
     }
 
 }

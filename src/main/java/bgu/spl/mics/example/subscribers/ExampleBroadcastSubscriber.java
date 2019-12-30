@@ -27,13 +27,10 @@ public class ExampleBroadcastSubscriber extends Subscriber {
 
     @Override
     protected void initialize() {
-        System.out.println("Listener " + getName() + " started");
-        
+
         subscribeBroadcast(ExampleBroadcast.class, message -> {
             mbt--;
-            System.out.println("Listener " + getName() + " got a new message from " + message.getSenderId() + "! (mbt: " + mbt + ")");
             if (mbt == 0) {
-                System.out.println("Listener " + getName() + " terminating.");
                 terminate();
             }
         });

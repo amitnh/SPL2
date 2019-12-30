@@ -1,6 +1,5 @@
 package bgu.spl.mics;
 
-import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +36,7 @@ public class Future<T> {
 		while (!isDone())
 			try{this.wait();}catch(Exception ignored){};
 		return Futresult;
+
 	}
 	
 	/**

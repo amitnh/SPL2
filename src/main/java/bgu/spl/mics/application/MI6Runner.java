@@ -1,8 +1,5 @@
 package bgu.spl.mics.application;
 
-import bgu.spl.mics.MessageBroker;
-import bgu.spl.mics.MessageBrokerImpl;
-import bgu.spl.mics.Subscriber;
 import bgu.spl.mics.application.passiveObjects.*;
 import bgu.spl.mics.application.publishers.Intelligence;
 import bgu.spl.mics.application.publishers.TimeService;
@@ -130,10 +127,13 @@ public class MI6Runner {
 
         try{timeSer.join();} catch (Exception ignored){} // Main waits for TimeService to Die slowly
 
+        Thread cleaner = new Thread(new Moneypenny());
+
+
         Diary.getInstance().printToFile(args[2]);
         Inventory.getInstance().printToFile(args[1]);
+        System.out.println("masheoo matzhik lefahot hamesh mitoh shmone. Active Threads: "+ Thread.activeCount());
 
-        System.out.println(Thread.activeCount() +" Threads active");
     }
 
 }

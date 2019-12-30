@@ -34,28 +34,23 @@ public class Moneypenny extends Subscriber {
 	protected void initialize() {
 
 		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
-			System.out.println(getName() + " doing " + "TerminateBroadcast");
 			squad.releaseAgents(null);
 			terminate();
-			System.out.println(getName() + " finished " + "TerminateBroadcast");
 
 
 		});// TODO Implement this
 
 
 		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
-			System.out.println(getName() + " doing " + "AgentsAvailableEvent");
 			Pair<List<String>, Integer> futureresult;
 
 			if(squad.getAgents(e.getSerials())) {
 					futureresult = new Pair<>(squad.getAgentsNames(e.getSerials()), this.id);
 					this.complete(e, futureresult);
-				System.out.println(getName() + " finished " + "AgentsAvailableEvent");
 			}
 			else {	//Agent not found
 				futureresult = new Pair<>(null,this.id);
 				this.complete(e, futureresult);
-				System.out.println(getName() + " finished " + "AgentsAvailableEvent");
 
 			}
 
@@ -63,21 +58,17 @@ public class Moneypenny extends Subscriber {
 
 
 		this.subscribeEvent(SendAgentsEvent.class,(SendAgentsEvent e)->{
-			System.out.println(getName() + " doing " + "SendAgentsEvent");
 
 			squad.sendAgents(e.getSerials(),e.getTime());
 			this.complete(e,true);
-			System.out.println(getName() + " finished " + "SendAgentsEvent");
 
 		} ); // use lambdas
 
 
 		this.subscribeEvent(ReleaseAgentsEvent.class,(ReleaseAgentsEvent e)->{
 
-			System.out.println(getName() + " doing " + "ReleaseAgentsEvent");
 			squad.releaseAgents(e.getSeriealstoRelease());
 			this.complete(e,true);
-			System.out.println(getName() + " finished " + "ReleaseAgentsEvent");
 
 		} ); // use lambdas
 

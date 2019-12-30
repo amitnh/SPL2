@@ -69,8 +69,6 @@ catch (Exception ignore){
 		Subscriber m;
 		try { 				//check if not empty, or event is null
 			synchronized (e.getClass()) { // to check
-				System.out.println("sendEvent synchronized on: " + e.getClass());
-
 				m = subscribeEventMap.get(e.getClass()).getFirst(); // brings the first subscriber in the event list
 			}
 		}
@@ -118,8 +116,10 @@ catch (Exception ignore){
 			while (subscribersQueueMap.get(m).isEmpty()) {
 				m.wait(); // if there in exception is automatically thrown
 			}
+
 			return subscribersQueueMap.get(m).remove();
 		}
+
 	}
 
 }

@@ -2,7 +2,10 @@
     "inventory": [
         "Sky Hook",
         "X-ray glasses",
-        "Dagger shoe"
+        "Dagger shoe",
+        "Sky Hook1",
+        "X-ray glasses1",
+        "Dagger shoe1"
     ],
     "services": {
         "M": 2,
@@ -22,9 +25,96 @@
                         "timeIssued": 3
                     },
                     {
+                        "serialAgentsNumbers": [
+                            "006",
+                            "007"
+                        ],
+                        "duration": 3,
+                        "gadget": "Sky Hook",
+                        "name": "X-ray glasses",
+                        "timeExpired": 15,
+                        "timeIssued": 3
+                    },
+                    {
+                        "serialAgentsNumbers": [
+                            "006",
+                            "008"
+                        ],
+                        "duration": 3,
+                        "gadget": "Sky Hook",
+                        "name": "X-ray glasses",
+                        "timeExpired": 15,
+                        "timeIssued": 3
+                    },
+                    {
+                        "serialAgentsNumbers": [
+                            "006",
+                            "007"
+                        ],
+                        "duration": 3,
+                        "gadget": "Sky Hook",
+                        "name": "X-ray glasses",
+                        "timeExpired": 15,
+                        "timeIssued": 3
+                    },
+                    {
+                        "serialAgentsNumbers": [
+                            "006",
+                            "007"
+                        ],
+                        "duration": 3,
+                        "gadget": "Sky Hook",
+                        "name": "X-ray glasses1",
+                        "timeExpired": 15,
+                        "timeIssued": 3
+                    },
+                    {
+                        "serialAgentsNumbers": [
+                            "006",
+                            "007"
+                        ],
+                        "duration": 3,
+                        "gadget": "Sky Hook",
+                        "name": "X-ray glasses1",
+                        "timeExpired": 15,
+                        "timeIssued": 3
+                    },
+                    {
                         "serialAgentsNumbers": ["008"],
                         "duration": 2,
                         "gadget": "Dagger shoe",
+                        "name": "GoldFinger",
+                        "timeExpired": 18,
+                        "timeIssued": 10
+                    },
+                    {
+                        "serialAgentsNumbers": ["006"],
+                        "duration": 2,
+                        "gadget": "Dagger shoe",
+                        "name": "GoldFinger",
+                        "timeExpired": 18,
+                        "timeIssued": 10
+                    },
+                    {
+                        "serialAgentsNumbers": ["006"],
+                        "duration": 2,
+                        "gadget": "Dagger shoe1",
+                        "name": "GoldFinger",
+                        "timeExpired": 18,
+                        "timeIssued": 10
+                    },
+                    {
+                        "serialAgentsNumbers": ["007"],
+                        "duration": 2,
+                        "gadget": "Dagger shoe1",
+                        "name": "GoldFinger",
+                        "timeExpired": 18,
+                        "timeIssued": 10
+                    },
+                    {
+                        "serialAgentsNumbers": ["006"],
+                        "duration": 2,
+                        "gadget": "Dagger shoe1",
                         "name": "GoldFinger",
                         "timeExpired": 18,
                         "timeIssued": 10

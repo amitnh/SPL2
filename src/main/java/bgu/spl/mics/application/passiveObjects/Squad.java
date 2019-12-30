@@ -1,5 +1,4 @@
 package bgu.spl.mics.application.passiveObjects;
-import com.sun.deploy.security.SelectableSecurityManager;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -47,27 +46,23 @@ public class Squad {
 		if (serials!=null) {
 			for (String s : serials) {
 				try {
-					System.out.println("releaseAgents wants to synchronized on: " + agents.get(s).getName());
 					synchronized (agents.get(s)) {
-						System.out.println("releaseAgents synchronized on: " + agents.get(s).getName());
 						agents.get(s).release();
 						agents.get(s).notifyAll();
 					}
-				} catch (Exception exp) {
+				} catch (Exception ignored) {
 				}
 			}
 		}
 		else // notify and realse all agents
 		{
-			for(int i=0;i<20;i++) {
-				System.out.println("NOTIFYYYY ALL AGENTS !!!!!");
+			for(int i=0;i<=Thread.activeCount()*10;i++) {
 				for (Agent a : agents.values()) {
 					try {
 						synchronized (agents.get(a)) {
 							agents.get(a).release();
-							agents.get(a).notifyAll();
 						}
-					} catch (Exception exp) {}
+					} catch (Exception ignored) {}
 				}
 			}
 		}
@@ -80,9 +75,7 @@ public class Squad {
 	public void sendAgents(List<String> serials, int time){
 		// TODO Implement this
 		try{Thread.sleep(time);}catch (Exception ignored){}//Send the agent to a trip to Paris
-		System.out.println("Misson complete, releasing angets !!!!!!!!");
 		releaseAgents(serials);
-		System.out.println("Agents released @@@@@@@@@@@@");
 
 
 	}
