@@ -120,7 +120,6 @@ public abstract class Subscriber extends RunnableSubPub {
             } catch (Exception ignored){}
             }
         msg.unregister(this);
-        System.out.println(getName() + " Terminated");
 
 
     }

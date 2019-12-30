@@ -29,7 +29,7 @@ public class Diary {
 		return instance;
 	}
 	public void increment(){
-		total++;
+		++this.total;
 	}
 	public List<Report> getReports() {
 		return null;

@@ -1,25 +1,8 @@
 {
   "reports": [
     {
-      "missionName": "The World Is Not Enough",
+      "missionName": "From Russia With Love",
       "m": 1,
-      "moneypenny": 1,
-      "agentsSerialNumbers": [
-        "006",
-        "007"
-      ],
-      "agentsNames": [
-        "Alec Trevelyan",
-        "James Bond"
-      ],
-      "gadgetName": "X-ray glasses",
-      "timeCreated": 1,
-      "timeIssued": 1,
-      "qTime": 1
-    },
-    {
-      "missionName": "GoldFinger",
-      "m": 3,
       "moneypenny": 0,
       "agentsSerialNumbers": [
         "007"
@@ -28,10 +11,10 @@
         "James Bond"
       ],
       "gadgetName": "Dagger shoe",
-      "timeCreated": 2,
-      "timeIssued": 1,
-      "qTime": 2
+      "timeCreated": 5,
+      "timeIssued": 5,
+      "qTime": 5
     }
   ],
-  "total": 5
+  "total": 2
 }

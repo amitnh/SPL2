@@ -33,42 +33,50 @@ public class Moneypenny extends Subscriber {
 	@Override
 	protected void initialize() {
 
+		if (id%2==0)
+		{
+			this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
+				Pair<List<String>, Integer> futureresult;
+
+				if(squad.getAgents(e.getSerials())) {
+					futureresult = new Pair<>(squad.getAgentsNames(e.getSerials()), this.id);
+					this.complete(e, futureresult);
+				}
+				else {	//Agent not found
+					futureresult = new Pair<>(null,this.id);
+					this.complete(e, futureresult);
+
+				}
+
+			} ); // use lambdas
+		}
+		else
+		{
+			this.subscribeEvent(SendAgentsEvent.class,(SendAgentsEvent e)->{
+
+				squad.sendAgents(e.getSerials(),e.getTime());
+				this.complete(e,true);
+
+			} ); // use lambdas
+
+
+			this.subscribeEvent(ReleaseAgentsEvent.class,(ReleaseAgentsEvent e)->{
+
+				squad.releaseAgents(e.getSeriealstoRelease());
+				this.complete(e,true);
+
+			} ); // use lambdas
+		}
 		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
-			squad.releaseAgents(null); // release all agents
 			terminate();
+			squad.releaseAgents(null); // release all agents
 		});// TODO Implement this
 
 
-		this.subscribeEvent(AgentsAvailableEvent.class,(AgentsAvailableEvent e)->{
-			Pair<List<String>, Integer> futureresult;
-
-			if(squad.getAgents(e.getSerials())) {
-					futureresult = new Pair<>(squad.getAgentsNames(e.getSerials()), this.id);
-					this.complete(e, futureresult);
-			}
-			else {	//Agent not found
-				futureresult = new Pair<>(null,this.id);
-				this.complete(e, futureresult);
-
-			}
-
-		} ); // use lambdas
 
 
-		this.subscribeEvent(SendAgentsEvent.class,(SendAgentsEvent e)->{
-
-			squad.sendAgents(e.getSerials(),e.getTime());
-			this.complete(e,true);
-
-		} ); // use lambdas
 
 
-		this.subscribeEvent(ReleaseAgentsEvent.class,(ReleaseAgentsEvent e)->{
-
-			squad.releaseAgents(e.getSeriealstoRelease());
-			this.complete(e,true);
-
-		} ); // use lambdas
 
 
 	}

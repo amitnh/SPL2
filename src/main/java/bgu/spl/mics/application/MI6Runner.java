@@ -97,6 +97,7 @@ public class MI6Runner {
                     mission.setSerialAgentsNumbers(serialAgentsNumbers);
 
                     missions.add(mission);
+                    Diary.getInstance().increment();
 
                 }
 
@@ -127,13 +128,12 @@ public class MI6Runner {
         timeSer.start();
 
         try{timeSer.join();
-           // for(Thread m : Ms)
-               // m.join();
+           for(Thread m : Ms)
+               m.join();
             } catch (Exception ignored){} // Main waits for TimeService to Die slowly
 
         Diary.getInstance().printToFile(args[2]);
         Inventory.getInstance().printToFile(args[1]);
-        System.out.println("masheoo matzhik lefahot hamesh mitoh shmone. Active Threads: "+ Thread.activeCount());
 
     }
 

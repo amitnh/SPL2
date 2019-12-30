@@ -45,24 +45,28 @@ public class Squad {
 		// TODO
 		if (serials!=null) {
 			for (String s : serials) {
-				try {
+				synchronized (agents.get(s)) {
+					try {
 						agents.get(s).release(); // and notify inside
 						agents.get(s).notifyAll();
 
-				} catch (Exception ignored) {
+					} catch (Exception ignored) {
+					}
 				}
 			}
 		}
 		else // notify and realse all agents
 		{
-			for(int i=0;i<=10;i++) {
+			for(int i=0;i<=100;i++) {
 				for (Agent a : agents.values()) {
-					try {
-						System.out.println(a.getSerialNumber());
+					synchronized (agents.get(a)) {
+						try {
 							agents.get(a).release();
-						agents.get(a).notifyAll();
+							agents.get(a).notifyAll();
 
-					} catch (Exception ignored) {}
+						} catch (Exception ignored) {
+						}
+					}
 				}
 			}
 		}
@@ -74,10 +78,13 @@ public class Squad {
 	 */
 	public void sendAgents(List<String> serials, int time){
 		// TODO Implement this
-		try{Thread.sleep(time);}catch (Exception ignored){}//Send the agent to a trip to Paris
+		synchronized (this) {
+			try {
+				this.wait(time);
+			} catch (Exception ignored) {
+			}//Send the agent to a trip to Paris
+		}
 		releaseAgents(serials);
-
-
 	}
 
 	/**
