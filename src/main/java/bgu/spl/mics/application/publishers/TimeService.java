@@ -40,5 +40,6 @@ public class TimeService extends Subscriber {
 			}
 		}
 		getSimplePublisher().sendBroadcast(new TerminateBroadcast());
+
 	}
 }

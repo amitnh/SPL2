@@ -3,7 +3,7 @@
     {
       "missionName": "The World Is Not Enough",
       "m": 1,
-      "moneypenny": 0,
+      "moneypenny": 1,
       "agentsSerialNumbers": [
         "006",
         "007"
@@ -18,26 +18,9 @@
       "qTime": 1
     },
     {
-      "missionName": "Thunderball",
-      "m": 1,
-      "moneypenny": 1,
-      "agentsSerialNumbers": [
-        "006",
-        "007"
-      ],
-      "agentsNames": [
-        "Alec Trevelyan",
-        "James Bond"
-      ],
-      "gadgetName": "Sky Hook",
-      "timeCreated": 1,
-      "timeIssued": 1,
-      "qTime": 1
-    },
-    {
       "missionName": "GoldFinger",
       "m": 3,
-      "moneypenny": 2,
+      "moneypenny": 0,
       "agentsSerialNumbers": [
         "007"
       ],
@@ -48,22 +31,7 @@
       "timeCreated": 2,
       "timeIssued": 1,
       "qTime": 2
-    },
-    {
-      "missionName": "From Russia With Love",
-      "m": 2,
-      "moneypenny": 1,
-      "agentsSerialNumbers": [
-        "007"
-      ],
-      "agentsNames": [
-        "James Bond"
-      ],
-      "gadgetName": "X-ray glasses1",
-      "timeCreated": 2,
-      "timeIssued": 1,
-      "qTime": 3
     }
   ],
-  "total": 7
+  "total": 5
 }

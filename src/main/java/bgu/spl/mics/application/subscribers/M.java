@@ -45,20 +45,26 @@ public class M extends Subscriber {
 			report.setTimeCreated((int)timeTick);
 			boolean isCompleted = false;
 			boolean isTerminated = false;
-
+			System.out.println(this.getName() + " getting agents");
 			Future<Pair<List<String>, Integer>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
 			if((agentevent.get()!=null) && (agentevent.get().getKey()!=null)) { //if moneypenny got agents ready
+				System.out.println(this.getName() + " got agents, getting gadgets");
+
 				Future<Pair<Long,Pair<Boolean,Boolean>>> gadgetevent = getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget()));
 				if ((gadgetevent.get()==null)||(gadgetevent.get().getValue().getValue())) { //terminated{
 					terminate();
 					isTerminated=true;
 				}
 				else if (gadgetevent.get().getValue().getKey()) {// checks if gadget is available
+					System.out.println(this.getName() + " got gadgets");
+
 					timeTick = gadgetevent.get().getKey();
 					report.setQTime( gadgetevent.get().getKey().intValue());
 					if (e.getInfo().getTimeExpired() >= timeTick) {
 						isCompleted = true;
-						getSimplePublisher().sendEvent(new SendAgentsEvent(e.getInfo().getSerialAgentsNumbers(), e.getInfo().getDuration())).get(); // send agents, if misson not completed reales agents
+						getSimplePublisher().sendEvent(new SendAgentsEvent(e.getInfo().getSerialAgentsNumbers(), e.getInfo().getDuration())); // send agents, if misson not completed reales agents
+						System.out.println(this.getName() + " sending agents");
+
 					}
 				}
 
@@ -77,15 +83,17 @@ public class M extends Subscriber {
 
 				report.setTimeIssued(e.getInfo().getTimeIssued());
 				diary.addReport(report);
+
 			}
 			else if(!isTerminated) {
 				System.out.println(id + " try ReleaseAgentsEvent ");
-				getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers())).get();
+				getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers()));
 				System.out.println(id + " ReleaseAgentsEvent OK ");
 
 			}
-
 			complete(e,isCompleted);
+
+
 
 
 		});

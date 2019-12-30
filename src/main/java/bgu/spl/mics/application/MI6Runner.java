@@ -127,8 +127,8 @@ public class MI6Runner {
         timeSer.start();
 
         try{timeSer.join();
-            for(Thread m : Ms)
-                m.join();
+           // for(Thread m : Ms)
+               // m.join();
             } catch (Exception ignored){} // Main waits for TimeService to Die slowly
 
         Diary.getInstance().printToFile(args[2]);

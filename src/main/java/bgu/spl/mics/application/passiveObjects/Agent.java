@@ -86,7 +86,7 @@ public class Agent {
 		// TODO Implement this
 		synchronized (isAvailableLock) {
 			isAvailable = true;
-			this.notifyAll();
+			//this.notifyAll();
 		}
 	}
 }

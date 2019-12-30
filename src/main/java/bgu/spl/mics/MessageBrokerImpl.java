@@ -1,4 +1,6 @@
 package bgu.spl.mics;
+import bgu.spl.mics.application.TerminateBroadcast;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -50,7 +52,6 @@ try {
 		subscribersQueueMap.putIfAbsent(m, new LinkedBlockingQueue<>());
 		synchronized (m) {
 			try {
-
 				subscribersQueueMap.get(m).put(b);
 				m.notifyAll();
 			} catch (Exception exp) {
@@ -108,10 +109,9 @@ catch (Exception ignore){
 		synchronized (m)
 		{
 			try {
-				System.out.println("am i empty: " + subscribersQueueMap.get(m).isEmpty());
  				for (Message msg : subscribersQueueMap.get(m)) {
-					System.out.println(Event.class.isAssignableFrom(msg.getClass()));
-					if (Event.class.isAssignableFrom(msg.getClass())) {
+					if (!Event.class.isAssignableFrom(msg.getClass())) {
+						System.out.println(msg);
 						futureHashMap.get(msg).resolve(null);
 					}
 				}}catch (Exception ignored){}
@@ -128,7 +128,13 @@ catch (Exception ignore){
 			while (subscribersQueueMap.get(m).isEmpty()) {
 				m.wait(); // if there in exception is automatically thrown
 			}
-
+			for (Message msg:subscribersQueueMap.get(m))
+			{
+				if (TerminateBroadcast.class.isAssignableFrom(msg.getClass())) { // return Terminate first
+					subscribersQueueMap.get(m).remove(msg);
+					return msg;
+				}
+			}
 			return subscribersQueueMap.get(m).remove();
 		}
 
