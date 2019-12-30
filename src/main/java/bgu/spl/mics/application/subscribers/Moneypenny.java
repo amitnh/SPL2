@@ -34,10 +34,8 @@ public class Moneypenny extends Subscriber {
 	protected void initialize() {
 
 		this.subscribeBroadcast(TerminateBroadcast.class, (TerminateBroadcast b) -> {
-			squad.releaseAgents(null);
+			squad.releaseAgents(null); // release all agents
 			terminate();
-
-
 		});// TODO Implement this
 
 

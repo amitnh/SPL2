@@ -40,7 +40,6 @@ public class MissionInfo {
     public void setSerialAgentsNumbers(List<String> serialAgentsNumbers) {
         // TODO Implement this
 		serialAgentsNumbers.sort( Comparator.comparing( String::toString ) );
-
 		this.serialAgentsNumbers = serialAgentsNumbers;
     }
 

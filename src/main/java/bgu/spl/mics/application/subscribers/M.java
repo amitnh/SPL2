@@ -47,15 +47,14 @@ public class M extends Subscriber {
 			boolean isTerminated = false;
 
 			Future<Pair<List<String>, Integer>> agentevent = getSimplePublisher().sendEvent(new AgentsAvailableEvent(e.getInfo().getSerialAgentsNumbers()));
-			if(agentevent.get().getKey()!=null) { //if moneypenny got agents ready
+			if((agentevent.get()!=null) && (agentevent.get().getKey()!=null)) { //if moneypenny got agents ready
 				Future<Pair<Long,Pair<Boolean,Boolean>>> gadgetevent = getSimplePublisher().sendEvent(new GadgetAvailableEvent(e.getInfo().getGadget()));
-				timeTick = gadgetevent.get().getKey();
-				if (gadgetevent.get().getValue().getValue()) { //terminated{
-					getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers())).get(); //Release Agents if overtime and notify
+				if ((gadgetevent.get()==null)||(gadgetevent.get().getValue().getValue())) { //terminated{
 					terminate();
 					isTerminated=true;
 				}
 				else if (gadgetevent.get().getValue().getKey()) {// checks if gadget is available
+					timeTick = gadgetevent.get().getKey();
 					report.setQTime( gadgetevent.get().getKey().intValue());
 					if (e.getInfo().getTimeExpired() >= timeTick) {
 						isCompleted = true;
@@ -64,6 +63,7 @@ public class M extends Subscriber {
 				}
 
 			}
+			else if(agentevent.get()==null) isTerminated=true;
 
 			if(isCompleted) {
 
@@ -78,10 +78,15 @@ public class M extends Subscriber {
 				report.setTimeIssued(e.getInfo().getTimeIssued());
 				diary.addReport(report);
 			}
-			else if(!isTerminated)
+			else if(!isTerminated) {
+				System.out.println(id + " try ReleaseAgentsEvent ");
 				getSimplePublisher().sendEvent(new ReleaseAgentsEvent(e.getInfo().getSerialAgentsNumbers())).get();
+				System.out.println(id + " ReleaseAgentsEvent OK ");
+
+			}
 
 			complete(e,isCompleted);
+
 
 		});
 

@@ -2,13 +2,13 @@
     "inventory": [
         "Sky Hook",
         "X-ray glasses",
-        "Dagger shoe",
-        "Sky Hook1",
         "X-ray glasses1",
-        "Dagger shoe1"
+        "Thunderball",
+
+        "Dagger shoe"
     ],
     "services": {
-        "M": 2,
+        "M": 3,
         "Moneypenny": 3,
         "intelligence": [
             {
@@ -22,102 +22,15 @@
                         "gadget": "Sky Hook",
                         "name": "Thunderball",
                         "timeExpired": 15,
-                        "timeIssued": 3
-                    },
-                    {
-                        "serialAgentsNumbers": [
-                            "006",
-                            "007"
-                        ],
-                        "duration": 3,
-                        "gadget": "Sky Hook",
-                        "name": "X-ray glasses",
-                        "timeExpired": 15,
-                        "timeIssued": 3
-                    },
-                    {
-                        "serialAgentsNumbers": [
-                            "006",
-                            "008"
-                        ],
-                        "duration": 3,
-                        "gadget": "Sky Hook",
-                        "name": "X-ray glasses",
-                        "timeExpired": 15,
-                        "timeIssued": 3
-                    },
-                    {
-                        "serialAgentsNumbers": [
-                            "006",
-                            "007"
-                        ],
-                        "duration": 3,
-                        "gadget": "Sky Hook",
-                        "name": "X-ray glasses",
-                        "timeExpired": 15,
-                        "timeIssued": 3
-                    },
-                    {
-                        "serialAgentsNumbers": [
-                            "006",
-                            "007"
-                        ],
-                        "duration": 3,
-                        "gadget": "Sky Hook",
-                        "name": "X-ray glasses1",
-                        "timeExpired": 15,
-                        "timeIssued": 3
-                    },
-                    {
-                        "serialAgentsNumbers": [
-                            "006",
-                            "007"
-                        ],
-                        "duration": 3,
-                        "gadget": "Sky Hook",
-                        "name": "X-ray glasses1",
-                        "timeExpired": 15,
-                        "timeIssued": 3
-                    },
-                    {
-                        "serialAgentsNumbers": ["008"],
-                        "duration": 2,
-                        "gadget": "Dagger shoe",
-                        "name": "GoldFinger",
-                        "timeExpired": 18,
-                        "timeIssued": 10
-                    },
-                    {
-                        "serialAgentsNumbers": ["006"],
-                        "duration": 2,
-                        "gadget": "Dagger shoe",
-                        "name": "GoldFinger",
-                        "timeExpired": 18,
-                        "timeIssued": 10
-                    },
-                    {
-                        "serialAgentsNumbers": ["006"],
-                        "duration": 2,
-                        "gadget": "Dagger shoe1",
-                        "name": "GoldFinger",
-                        "timeExpired": 18,
-                        "timeIssued": 10
+                        "timeIssued": 1
                     },
                     {
                         "serialAgentsNumbers": ["007"],
                         "duration": 2,
-                        "gadget": "Dagger shoe1",
+                        "gadget": "Dagger shoe",
                         "name": "GoldFinger",
                         "timeExpired": 18,
-                        "timeIssued": 10
-                    },
-                    {
-                        "serialAgentsNumbers": ["006"],
-                        "duration": 2,
-                        "gadget": "Dagger shoe1",
-                        "name": "GoldFinger",
-                        "timeExpired": 18,
-                        "timeIssued": 10
+                        "timeIssued": 1
                     }
                 ]
             },
@@ -132,15 +45,48 @@
                         "gadget": "X-ray glasses",
                         "name": "The World Is Not Enough",
                         "timeExpired": 15,
-                        "timeIssued": 3
+                        "timeIssued": 1
+                    },
+                    {
+                        "serialAgentsNumbers": [
+                            "007",
+                            "006"
+                        ],
+                        "duration": 5,
+                        "gadget": "X-ray glasses",
+                        "name": "The World Is Not Enough",
+                        "timeExpired": 20,
+                        "timeIssued": 15
+                    },
+                    {
+                        "serialAgentsNumbers": [
+                            "007",
+                            "006"
+                        ],
+                        "duration": 2,
+                        "gadget": "X-ray glasses2",
+                        "name": "The World Is Not Enough",
+                        "timeExpired": 20,
+                        "timeIssued": 17
+                    },
+                    {
+                        "serialAgentsNumbers": [
+                            "007",
+                            "006"
+                        ],
+                        "duration": 3,
+                        "gadget": "X-ray glasses",
+                        "name": "The World Is Not Enough",
+                        "timeExpired": 15,
+                        "timeIssued": 1
                     },
                     {
                         "serialAgentsNumbers": ["007"],
                         "duration": 2,
-                        "gadget": "X-ray glasses",
+                        "gadget": "X-ray glasses1",
                         "name": "From Russia With Love",
                         "timeExpired": 100,
-                        "timeIssued": 10
+                        "timeIssued": 1
                     }
                 ]
             }

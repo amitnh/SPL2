@@ -67,6 +67,7 @@ catch (Exception ignore){
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
 		Subscriber m;
+		Future<T> future = new Future<>();
 		try { 				//check if not empty, or event is null
 			synchronized (e.getClass()) { // to check
 				m = subscribeEventMap.get(e.getClass()).getFirst(); // brings the first subscriber in the event list
@@ -74,7 +75,6 @@ catch (Exception ignore){
 		}
 			catch(Exception exp){return null;}
 
-			Future<T> future = new Future<>();
 			futureHashMap.putIfAbsent(e,future);
 			synchronized (subscribeEventMap.get(e.getClass()).getFirst()) { // m
 				subscribeEventMap.get(e.getClass()).add(subscribeEventMap.get(e.getClass()).remove(0)); // moves the subscriber to the end of the list ?
@@ -93,20 +93,32 @@ catch (Exception ignore){
 
 	@Override
 	public void unregister(Subscriber m) {
+
+
 		for (Map.Entry<Class<? extends Event>,LinkedList<Subscriber>>  i:subscribeEventMap.entrySet()) {
 			synchronized (i.getKey()) {
-				try {i.getValue().remove(m);} catch (Exception exp){}
+				try {i.getValue().remove(m);} catch (Exception ignored){}
 			}
 		}
 		for (Map.Entry<Class<? extends Broadcast>,LinkedList<Subscriber>>  i:subscribeBroadcastMap.entrySet()) {
 			synchronized (i.getKey()) {
-				try {i.getValue().remove(m);} catch (Exception exp){}
+				try {i.getValue().remove(m);} catch (Exception ignored){}
 			}
 		}
 		synchronized (m)
 		{
-			subscribersQueueMap.remove(m);
-		}
+			try {
+				System.out.println("am i empty: " + subscribersQueueMap.get(m).isEmpty());
+ 				for (Message msg : subscribersQueueMap.get(m)) {
+					System.out.println(Event.class.isAssignableFrom(msg.getClass()));
+					if (Event.class.isAssignableFrom(msg.getClass())) {
+						futureHashMap.get(msg).resolve(null);
+					}
+				}}catch (Exception ignored){}
+				try{subscribersQueueMap.remove(m);}catch (Exception ignored){}
+
+				}
+
 
 	}
 

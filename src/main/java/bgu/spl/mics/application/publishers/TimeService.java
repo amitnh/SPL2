@@ -31,7 +31,6 @@ public class TimeService extends Subscriber {
 	protected void initialize() {
 		// TODO Implement this
 		this.terminate();
-
 		while(now-statingTime<timeout) { //CHANGE THIS
 
 			////DO EVERY 100ms:

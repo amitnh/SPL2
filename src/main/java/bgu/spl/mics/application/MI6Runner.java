@@ -106,11 +106,10 @@ public class MI6Runner {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-
+        List<Thread> Ms = new LinkedList<>();
         for(int i=0; i<numofMs; i++)
         {
-            new Thread(new M()).start();
+          Ms.add(new Thread(new M()));
         }
         for(int i=0; i<numofMoneypennys; i++)
         {
@@ -121,14 +120,16 @@ public class MI6Runner {
             new Thread(x).start();
         new Thread(new Q()).start();
 
+        for(Thread m : Ms)
+            m.start();
         //Make Time Serviece
         Thread timeSer = new Thread(new TimeService(time));
         timeSer.start();
 
-        try{timeSer.join();} catch (Exception ignored){} // Main waits for TimeService to Die slowly
-
-        Thread cleaner = new Thread(new Moneypenny());
-
+        try{timeSer.join();
+            for(Thread m : Ms)
+                m.join();
+            } catch (Exception ignored){} // Main waits for TimeService to Die slowly
 
         Diary.getInstance().printToFile(args[2]);
         Inventory.getInstance().printToFile(args[1]);

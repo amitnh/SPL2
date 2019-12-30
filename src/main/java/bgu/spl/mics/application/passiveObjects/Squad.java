@@ -46,22 +46,18 @@ public class Squad {
 		if (serials!=null) {
 			for (String s : serials) {
 				try {
-					synchronized (agents.get(s)) {
-						agents.get(s).release();
-						agents.get(s).notifyAll();
-					}
+						agents.get(s).release(); // and notify inside
+
 				} catch (Exception ignored) {
 				}
 			}
 		}
 		else // notify and realse all agents
 		{
-			for(int i=0;i<=Thread.activeCount()*10;i++) {
+			for(int i=0;i<=Thread.activeCount();i++) {
 				for (Agent a : agents.values()) {
 					try {
-						synchronized (agents.get(a)) {
 							agents.get(a).release();
-						}
 					} catch (Exception ignored) {}
 				}
 			}
@@ -95,8 +91,8 @@ public class Squad {
 					while (!agents.get(s).isAvailable()) // until available
 					{
 						try {
-							agents.get(s).wait();
-						} catch (Exception ignored) {
+							agents.get(s).wait(100);
+						} catch (Exception exp) {Thread.currentThread().interrupt();
 						}
 					}
 					serialAcquired.add(s); // add to list

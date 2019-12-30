@@ -119,6 +119,8 @@ public abstract class Subscriber extends RunnableSubPub {
                 callbackHashMap.get(curMsg.getClass()).call(curMsg);
             } catch (Exception ignored){}
             }
+        msg.unregister(this);
+
     }
 
 }
